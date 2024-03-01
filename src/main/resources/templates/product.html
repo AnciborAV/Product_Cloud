@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+</head>
+
+<body>
+<h1>Products</h1>
+<h2>View products</h2>
+
+<style>
+    h1{text-align:left; color:darkgreen;}
+    h2{text-align:left; color:darkgreen;}
+    h3{text-align:left; color:darkgreen;}
+    body{background-image:url("/images/1.png");}
+    table{text-align: left; color: darkgreen;}
+</style>
+
+<table>
+    <tr>
+        <th>PRODUCT NAME</th>
+        <th>PRODUCT PRICE</th>
+    </tr>
+
+    <tr th:each="p: ${products}" >
+        <td th:text="${p.name}"></td>
+        <td th:text="${p.price}"></td>
+    </tr>
+</table>
+<h3>Thank you for the order!</h3>
+<h2>Add a product</h2>
+
+<form action="/products" method="post">
+    Name: <input type="text" name="name"><br />
+    Price: <input type="number" step="any" name="price"><br />
+    <button type="submit">Add product</button>
+</form>
+
+</body>
+</html>
