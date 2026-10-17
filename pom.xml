@@ -2,48 +2,58 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <!-- Родитель Spring Boot согласует версии библиотек и стандартные настройки Maven. -->
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>4.1.1</version>
         <relativePath/>
     </parent>
+    <!-- Координаты проекта: организация, имя артефакта и версия создаваемого JAR. -->
     <groupId>ru.aav</groupId>
     <artifactId>product-cloud</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <name>Product Cloud</name>
     <properties>
+        <!-- Код компилируется для Java 25; для сборки нужен соответствующий JDK. -->
         <java.version>25</java.version>
     </properties>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <!-- Spring Data JPA, Hibernate и JDBC: репозитории, сущности и доступ к базе. -->
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <!-- Thymeleaf формирует HTML на сервере из шаблона и данных Model. -->
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <!-- Spring MVC обрабатывает HTTP-запросы; встроенный Tomcat запускает веб-сервер. -->
             <artifactId>spring-boot-starter-webmvc</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <!-- Реализация Jakarta Bean Validation для @Valid и ограничений полей формы. -->
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>
+            <!-- JDBC-драйвер PostgreSQL. runtime: нужен при запуске, а не при компиляции нашего кода. -->
             <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.h2database</groupId>
+            <!-- Встроенная база для demo-профиля и локальных тестов; отдельный сервер не нужен. -->
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <!-- JUnit, средства проверки и MockMvc; scope=test исключает их из приложения. -->
             <artifactId>spring-boot-starter-webmvc-test</artifactId>
             <scope>test</scope>
         </dependency>
@@ -52,7 +62,8 @@
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
+                <!-- Упаковывает приложение с зависимостями в JAR, запускаемый через java -jar. -->
+            <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>

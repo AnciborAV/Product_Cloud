@@ -1,35 +1,46 @@
 name: Build and test
+# Сборка запускается при отправке коммитов и при изменениях запроса на слияние.
 on: [push, pull_request]
+# Токену workflow достаточно читать исходники; запись в репозиторий не нужна.
 permissions:
   contents: read
 jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    # Временный PostgreSQL проверяет работу не только на встроенной H2.
     services:
       postgres:
         image: postgres:16
+        # Переменные инициализации временного контейнера PostgreSQL.
         env:
           POSTGRES_DB: products_test
           POSTGRES_USER: test
+          # Это пароль одноразового тестового контейнера, не рабочей базы.
           POSTGRES_PASSWORD: test
         ports:
           - 5432:5432
+        # Healthcheck ждёт готовности базы прежде, чем Maven начнёт тесты.
         options: >-
           --health-cmd "pg_isready -U test -d products_test"
           --health-interval 5s --health-timeout 5s --health-retries 10
+    # Эти переменные читает application-test.properties.
     env:
       TEST_DB_URL: jdbc:postgresql://localhost:5432/products_test
       TEST_DB_USERNAME: test
       TEST_DB_PASSWORD: test
     steps:
+      # Получаем исходники проверяемого коммита.
       - uses: actions/checkout@v4
+      # Устанавливаем JDK 25 и кешируем зависимости Maven для следующих сборок.
       - uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: '25'
           cache: maven
+      # Wrapper выбирает Maven. clean удаляет прошлую сборку; verify компилирует, тестирует и упаковывает.
       - run: ./mvnw --batch-mode --no-transfer-progress clean verify
+      # Сохраняем отчёты JUnit даже при падении тестов, чтобы можно было найти причину.
       - uses: actions/upload-artifact@v4
         if: always()
         with:
