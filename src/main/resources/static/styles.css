@@ -1,0 +1,28 @@
+* { box-sizing: border-box; }
+:root { font-family: system-ui, sans-serif; color: #19352f; background: #f3f6f4; }
+body { margin: 0; }
+.workspace { max-width: 1120px; margin: auto; padding: 56px 24px; }
+.eyebrow { font-size: .75rem; font-weight: 700; letter-spacing: .16em; color: #477466; }
+h1 { font-size: clamp(2rem, 4vw, 3rem); letter-spacing: -.04em; margin: 12px 0; }
+h2 { font-size: 1.2rem; margin: 0 0 24px; }
+.muted { color: #64766f; margin-bottom: 36px; }
+.layout { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(270px, 1fr); gap: 24px; align-items: start; }
+.panel { background: white; border: 1px solid #dce5df; border-radius: 16px; padding: 28px; }
+.panel-heading { display: flex; align-items: baseline; justify-content: space-between; }
+.badge { background: #edf4ef; padding: 4px 10px; border-radius: 20px; }
+.table-scroll { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; }
+th, td { padding: 16px 8px; border-bottom: 1px solid #e6ece8; text-align: left; overflow-wrap: anywhere; }
+th { font-size: .8rem; color: #64766f; }
+.price { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+label { display: block; font-size: .9rem; margin: 20px 0 8px; }
+input { width: 100%; border: 1px solid #aabdb2; border-radius: 8px; padding: 12px; font: inherit; }
+button { width: 100%; margin-top: 24px; background: #205c48; color: white; border: 0; border-radius: 8px; padding: 14px; font: inherit; cursor: pointer; }
+button:hover { background: #174735; }
+:focus-visible { outline: 3px solid #4b9279; outline-offset: 3px; }
+.error { color: #a52f29; font-size: .85rem; }
+.notice { border-left: 4px solid #205c48; background: #e4f2e8; padding: 14px; }
+.empty { color: #64766f; padding: 24px 0; }
+.pagination { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; margin-top: 24px; font-size: .85rem; }
+a { color: #205c48; }
+@media (max-width: 760px) { .layout { grid-template-columns: 1fr; } .workspace { padding: 28px 16px; } .panel { padding: 20px; } }

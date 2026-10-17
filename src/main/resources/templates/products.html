@@ -1,43 +1,56 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Home Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Product Cloud — каталог товаров</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
 </head>
-
 <body>
-<h1>Products</h1>
-<h2>View products</h2>
-
-<style>
-    h1{text-align:left; color:darkgreen;}
-    h2{text-align:left; color:darkgreen;}
-    h3{text-align:left; color:darkgreen;}
-    body{background-image:url("/images/1.png");}
-    table{text-align: left; color: darkgreen;}
-</style>
-
-<table>
-    <tr>
-        <th>PRODUCT NAME</th>
-        <th>PRODUCT PRICE</th>
-    </tr>
-
-    <tr th:each="p: ${products}" >
-        <td th:text="${p.name}"></td>
-        <td th:text="${p.price}"></td>
-    </tr>
-</table>
-<h3>Thank you for the order!</h3>
-<h2>Add a product</h2>
-
-<form action="/products" method="post">
-    Name: <input type="text" name="name"><br />
-    Price: <input type="number" step="any" name="price"><br />
-    <button type="submit">Add product</button>
-</form>
-
+<main class="workspace">
+    <header>
+        <p class="eyebrow">PRODUCT CLOUD</p>
+        <h1>Каталог товаров</h1>
+        <p class="muted">Названия и цены в одном месте.</p>
+    </header>
+    <p class="notice" role="status" th:if="${success}" th:text="${success}"></p>
+    <div class="layout">
+        <section class="panel" aria-labelledby="catalog-heading">
+            <div class="panel-heading">
+                <h2 id="catalog-heading">Товары</h2>
+                <span class="badge" th:text="${products.totalElements}">0</span>
+            </div>
+            <p class="empty" th:if="${products.empty}">Здесь пока нет товаров. Добавьте первый.</p>
+            <div class="table-scroll" th:unless="${products.empty}">
+                <table>
+                    <thead><tr><th scope="col">Название</th><th scope="col" class="price">Цена</th></tr></thead>
+                    <tbody>
+                    <tr th:each="product : ${products.content}">
+                        <td th:text="${product.name}"></td>
+                        <td class="price" th:text="${#numbers.formatDecimal(product.price, 1, 'WHITESPACE', 2, 'COMMA')}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <nav class="pagination" aria-label="Страницы каталога" th:if="${products.totalPages > 1}">
+                <a th:if="${products.hasPrevious()}" th:href="@{/products(page=${products.number - 1})}">← Назад</a>
+                <span th:text="|Страница ${products.number + 1} из ${products.totalPages}|"></span>
+                <a th:if="${products.hasNext()}" th:href="@{/products(page=${products.number + 1})}">Далее →</a>
+            </nav>
+        </section>
+        <section class="panel" aria-labelledby="form-heading">
+            <h2 id="form-heading">Новый товар</h2>
+            <form th:action="@{/products}" th:object="${productForm}" method="post">
+                <label for="name">Название</label>
+                <input id="name" th:field="*{name}" maxlength="255" required aria-describedby="name-error">
+                <p id="name-error" class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+                <label for="price">Цена</label>
+                <input id="price" type="number" th:field="*{price}" min="0" step="0.01" required aria-describedby="price-error">
+                <p id="price-error" class="error" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></p>
+                <button type="submit">Добавить товар</button>
+            </form>
+        </section>
+    </div>
+</main>
 </body>
 </html>

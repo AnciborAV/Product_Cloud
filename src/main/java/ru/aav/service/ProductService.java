@@ -1,47 +1,53 @@
 package ru.aav.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.aav.model.Product;
+import ru.aav.model.ProductView;
 import ru.aav.repository.ProductRepository;
-import java.util.List;
+
+import java.math.BigDecimal;
 
 @Service
+@Transactional(readOnly = true)
 public class ProductService {
+    private static final int PAGE_SIZE = 20;
+    private final ProductRepository repository;
 
-    @Autowired
-    private ProductRepository repository;
-
-    public Product saveProduct(Product products) {
-        return repository.save(products);
+    public ProductService(ProductRepository repository) {
+        this.repository = repository;
     }
 
-    public List<Product> saveProducts(List<Product> products) {
-        return repository.saveAll(products);
+    public Page<ProductView> getProducts(int page) {
+        return repository.findAll(PageRequest.of(page, PAGE_SIZE, Sort.by("id")))
+                .map(ProductView::from);
     }
 
-    public List<Product> getProducts() {
-        return repository.findAll();
+    public ProductView getProductById(int id) {
+        return ProductView.from(requireProduct(id));
     }
 
-    public Product getProductById(int id) {
-        return repository.findById(id).orElse(null);
+    @Transactional
+    public ProductView createProduct(String name, BigDecimal price) {
+        return ProductView.from(repository.save(new Product(name, price)));
     }
 
-    public Product getProductByName(String name) {
-        return repository.findByName(name);
+    @Transactional
+    public ProductView updateProduct(int id, String name, BigDecimal price) {
+        var product = requireProduct(id);
+        product.update(name, price);
+        return ProductView.from(product);
     }
 
-    public String deleteProduct(int id) {
-        repository.deleteById(id);
-        return "Product removed! " + id;
+    @Transactional
+    public void deleteProduct(int id) {
+        repository.delete(requireProduct(id));
     }
 
-    public Product updateProduct(Product product) {
-        Product existingProduct =
-                repository.findById(product.getId()).orElse(null);
-        existingProduct.setName(product.getName());
-        existingProduct.setPrice(product.getPrice());
-        return repository.save(existingProduct);
+    private Product requireProduct(int id) {
+        return repository.findById(id).orElseThrow(() -> new ProductNotFoundException(id));
     }
 }
