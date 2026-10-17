@@ -50,3 +50,26 @@ export DB_PASSWORD='your-local-password'
 GitHub Actions запускает тот же набор на PostgreSQL 16 через TEST_DB_URL,
 TEST_DB_USERNAME, TEST_DB_PASSWORD. Тестовый профиль использует create-drop:
 не указывайте в TEST_DB_URL базу с нужными данными.
+
+## Как изучать код
+
+Комментарии к классам и методам написаны по-русски в формате Javadoc (`/** ... */`).
+В IntelliJ IDEA их можно читать прямо в файлах или в подсказке документации символа.
+
+Рекомендуемый порядок:
+1. `ProductCloudJpaApplication` — запуск Spring Boot и создание компонентов.
+2. `Product` — сущность, идентификатор, BigDecimal и правила корректных данных.
+3. `ProductRepository` — стандартные операции Spring Data JPA.
+4. `ProductService` — транзакции, пагинация и изменение управляемой сущности.
+5. `ProductView` и `ProductForm` — разделение данных для вывода и ввода.
+6. `ProductsController` — маршруты, Model, валидация и перенаправление после POST.
+7. `templates/products.html` — построение страницы средствами Thymeleaf.
+8. `ProductCloudJpaApplicationTests` — примеры ожидаемого поведения и пограничных случаев.
+9. `pom.xml`, `application*.properties`, `.github/workflows/build.yml` — сборка, профили и CI.
+
+При открытии каталога: браузер → GET /products → контроллер → сервис → репозиторий → БД.
+Обратно идут сущности, затем DTO внутри Page, затем Model и готовая HTML-страница.
+При добавлении: POST → ProductForm → валидация → сервис → Product → сохранение → redirect → GET.
+При ошибке формы сохранения нет: контроллер повторно показывает страницу с ошибками.
+Методы сервиса чтения по id, обновления и удаления покрыты тестами, но отдельные
+HTTP-маршруты и кнопки для них в текущем учебном интерфейсе не добавлены.

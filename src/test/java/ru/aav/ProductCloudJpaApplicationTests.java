@@ -23,6 +23,13 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+/**
+ * Интеграционные тесты запускают полный контекст Spring Boot.
+ * MockMvc вызывает MVC-обработчики и рендеринг шаблонов без отдельного HTTP-сервера.
+ * Профиль test выбирает отдельную H2-базу локально или PostgreSQL в CI.
+ * @Autowired внедряет тестовые зависимости; сервис/репозиторий здесь настоящие.
+ * Тесты не обёрнуты общей транзакцией: проверяется реальное завершение транзакций сервиса.
+ */
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
@@ -34,11 +41,17 @@ class ProductCloudJpaApplicationTests {
     @Autowired
     ProductService service;
 
+    /**
+     * Очищает таблицу перед каждым тестом, чтобы результаты не зависели от порядка запуска.
+     */
     @BeforeEach
     void clearProducts() {
         repository.deleteAll();
     }
 
+    /**
+     * Проверяет маршрут главной страницы, пустой каталог и доступность CSS.
+     */
     @Test
     void rendersEmptyCatalogAndRedirectsHome() throws Exception {
         mvc.perform(get("/")).andExpect(redirectedUrl("/products"));
@@ -47,6 +60,9 @@ class ProductCloudJpaApplicationTests {
         mvc.perform(get("/styles.css")).andExpect(status().isOk());
     }
 
+    /**
+     * Проверяет создание через HTTP-форму, удаление пробелов, точность цены и перенаправление.
+     */
     @Test
     void createsProductWithExactPriceAndRedirects() throws Exception {
         mvc.perform(post("/products").param("name", "  Книга  ").param("price", "19.90"))
@@ -59,6 +75,9 @@ class ProductCloudJpaApplicationTests {
         assertEquals(1, repository.count());
     }
 
+    /**
+     * Каждое значение из ValueSource — отдельный запуск: неверная цена не должна попасть в БД.
+     */
     @ParameterizedTest
     @ValueSource(strings = {"-0.01", "1.001", "abc", "", "100000000000000000.00"})
     void rejectsInvalidPricesWithoutWriting(String price) throws Exception {
@@ -67,6 +86,9 @@ class ProductCloudJpaApplicationTests {
         assertEquals(0, repository.count());
     }
 
+    /**
+     * Проверяет отсутствие названия, пробелы и превышение ограничения длины.
+     */
     @Test
     void rejectsMissingBlankAndOversizedNames() throws Exception {
         for (String name : new String[]{"", "   ", "x".repeat(256)}) {
@@ -78,6 +100,9 @@ class ProductCloudJpaApplicationTests {
         assertEquals(0, repository.count());
     }
 
+    /**
+     * Подтверждает допустимость нулевой цены и невозможность перезаписать товар переданным id.
+     */
     @Test
     void zeroPriceIsAllowedAndClientIdCannotOverwriteExistingProduct() throws Exception {
         var original = service.createProduct("Original", BigDecimal.ONE);
@@ -88,6 +113,9 @@ class ProductCloudJpaApplicationTests {
         assertEquals("Original", service.getProductById(original.id()).name());
     }
 
+    /**
+     * Проверяет экранирование текста Thymeleaf: название не должно превращаться в исполняемый HTML.
+     */
     @Test
     void escapesHtmlInProductNames() throws Exception {
         service.createProduct("<script>alert(1)</script>", BigDecimal.ONE);
@@ -96,6 +124,9 @@ class ProductCloudJpaApplicationTests {
                 .andExpect(content().string(containsString("&lt;script&gt;")));
     }
 
+    /**
+     * Проверяет сохранение обновления после завершения транзакции и последующее удаление.
+     */
     @Test
     void updatesAndDeletesPersistedProducts() {
         var created = service.createProduct("Before", new BigDecimal("0.10"));
@@ -107,6 +138,9 @@ class ProductCloudJpaApplicationTests {
         assertEquals(0, repository.count());
     }
 
+    /**
+     * Проверяет единый контракт ошибки для чтения, изменения и удаления отсутствующего товара.
+     */
     @Test
     void missingProductsProduceExplicitErrors() {
         assertThrows(ProductNotFoundException.class, () -> service.getProductById(Integer.MAX_VALUE));
@@ -115,6 +149,9 @@ class ProductCloudJpaApplicationTests {
         assertThrows(ProductNotFoundException.class, () -> service.deleteProduct(Integer.MAX_VALUE));
     }
 
+    /**
+     * Проверяет защиту модели при обходе формы и сохранение прежних значений после ошибки.
+     */
     @Test
     void domainValidationPreventsInvalidServiceWrites() {
         assertThrows(IllegalArgumentException.class, () -> service.createProduct(" ", BigDecimal.ONE));
@@ -125,6 +162,9 @@ class ProductCloudJpaApplicationTests {
         assertEquals("Original", service.getProductById(created.id()).name());
     }
 
+    /**
+     * Проверяет разбиение 21 товара на две страницы, порядок id и HTTP 400 для отрицательного номера.
+     */
     @Test
     void paginatesInStableOrderAndRejectsInvalidPage() throws Exception {
         for (int i = 0; i < 21; i++) {

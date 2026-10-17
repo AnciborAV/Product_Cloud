@@ -1,3 +1,5 @@
+/* Оформление страницы: Grid делит каталог и форму, media-запрос складывает их на узком экране.
+   CSS отвечает только за внешний вид; сохранение и проверки выполняются на сервере. */
 * { box-sizing: border-box; }
 :root { font-family: system-ui, sans-serif; color: #19352f; background: #f3f6f4; }
 body { margin: 0; }
@@ -19,6 +21,7 @@ label { display: block; font-size: .9rem; margin: 20px 0 8px; }
 input { width: 100%; border: 1px solid #aabdb2; border-radius: 8px; padding: 12px; font: inherit; }
 button { width: 100%; margin-top: 24px; background: #205c48; color: white; border: 0; border-radius: 8px; padding: 14px; font: inherit; cursor: pointer; }
 button:hover { background: #174735; }
+/* Видимая рамка помогает перемещаться по форме с клавиатуры. */
 :focus-visible { outline: 3px solid #4b9279; outline-offset: 3px; }
 .error { color: #a52f29; font-size: .85rem; }
 .notice { border-left: 4px solid #205c48; background: #e4f2e8; padding: 14px; }
