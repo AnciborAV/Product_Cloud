@@ -66,7 +66,13 @@ public final class AuthController implements HttpHandler {
         String cookie = exchange.getRequestHeaders().getFirst("Cookie");
         if (cookie != null) for (String part : cookie.split(";")) {
             String value = part.strip();
-            if (value.startsWith("shelf_session=")) return value.substring("shelf_session=".length());
+            if (value.startsWith("shelf_session=")) {
+                String session = value.substring("shelf_session=".length());
+                // Некоторые HTTP-клиенты заключают cookie в кавычки (RFC 6265).
+                if (session.length() >= 2 && session.startsWith("\"") && session.endsWith("\""))
+                    session = session.substring(1, session.length() - 1);
+                return session;
+            }
         }
         return null;
     }
