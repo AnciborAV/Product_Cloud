@@ -1,0 +1,43 @@
+name: Quiet Shelf tests
+on:
+  push:
+    paths: ['examples/bookshop/**', '.github/workflows/bookshop.yml']
+  pull_request:
+    paths: ['examples/bookshop/**', '.github/workflows/bookshop.yml']
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      matrix:
+        java: ['17', '25']
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: quiet_shelf_test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: ephemeral_test_password
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U postgres -d quiet_shelf_test"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      SHOP_TEST_DB_URL: jdbc:postgresql://localhost:5432/quiet_shelf_test
+      SHOP_DB_USER: postgres
+      SHOP_DB_PASSWORD: ephemeral_test_password
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '${{ matrix.java }}'
+          cache: maven
+      - run: bash mvnw -B --no-transfer-progress -f examples/bookshop/pom.xml verify
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: bookshop-tests-java-${{ matrix.java }}
+          path: examples/bookshop/target/surefire-reports

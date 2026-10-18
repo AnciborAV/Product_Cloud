@@ -1,0 +1,8 @@
+/build/
+/target/
+/data/
+/.idea/
+*.iml
+.env
+.env.*
+*.backup
