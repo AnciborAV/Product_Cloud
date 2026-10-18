@@ -35,7 +35,7 @@ jobs:
           distribution: temurin
           java-version: '${{ matrix.java }}'
           cache: maven
-      - run: bash mvnw -B --no-transfer-progress -f examples/bookshop/pom.xml verify
+      - run: bash ./mvnw -B --no-transfer-progress -f examples/bookshop/pom.xml verify
       - uses: actions/upload-artifact@v4
         if: always()
         with:
