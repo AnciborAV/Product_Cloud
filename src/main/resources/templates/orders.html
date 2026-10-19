@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#20583c"><title>Мои заказы — Product Cloud</title>
+<link rel="stylesheet" th:href="@{/styles.css}"><link rel="stylesheet" th:href="@{/account.css}">
+<script th:src="@{/account.js}" defer></script></head><body>
+<a class="skip-link" href="#main">Перейти к содержимому</a>
+<th:block th:replace="~{fragments/shop :: header}"></th:block>
+<main id="main" class="workspace customer-workspace">
+<th:block th:replace="~{fragments/shop :: notices}"></th:block>
+
+<div class="page-heading"><div><p class="eyebrow">ВАШИ МАЛЕНЬКИЕ ВКУСНЫЕ ИСТОРИИ</p><h1>Мои <em>заказы.</em></h1><p class="muted">Состав, цены и детали каждого заказа — всегда под рукой.</p></div><a class="quiet-link" th:href="@{/account}">← В личный кабинет</a></div>
+<section th:if="${orders.empty}" class="empty-state"><span aria-hidden="true">▤</span><h2>Ваша история только начинается</h2><p>Оформите первый заказ — и он появится здесь.</p><a class="primary" th:href="@{/products#catalog}">Выбрать продукты →</a></section>
+<div class="order-grid"><article class="panel order-card" th:each="order : ${orders.content}"><div class="order-card-heading"><div><p class="eyebrow" th:text="${order.date}"></p><h2 th:text="|Заказ № ${order.id}|"></h2></div><span class="soft-badge">Оформлен</span></div><ul class="order-preview"><li th:each="line, status : ${order.lines}" th:if="${status.index < 3}"><span th:text="${line.name}"></span><small th:text="|${line.quantity} шт.|"></small></li></ul><p th:if="${order.lines.size() > 3}" class="field-help" th:text="|Ещё позиций: ${order.lines.size() - 3}|"></p><div class="order-bottom"><strong th:text="|${#numbers.formatDecimal(order.total, 1, 'WHITESPACE', 2, 'COMMA')} ₽|"></strong><a th:href="@{/orders/{id}(id=${order.id})}">Подробнее ↗</a></div><form th:action="@{/orders/{id}/repeat(id=${order.id})}" method="post"><button class="outline" type="submit">Повторить в корзину</button></form></article></div>
+<nav class="pagination" aria-label="Страницы истории" th:if="${orders.totalPages > 1}"><a th:if="${orders.hasPrevious()}" th:href="@{/orders(page=${orders.number - 1})}">← Назад</a><span th:text="|Страница ${orders.number + 1} из ${orders.totalPages}|"></span><a th:if="${orders.hasNext()}" th:href="@{/orders(page=${orders.number + 1})}">Далее →</a></nav>
+</main><footer th:replace="~{fragments/shop :: footer}"></footer></body></html>

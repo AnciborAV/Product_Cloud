@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#20583c"><title>Детали заказа — Product Cloud</title>
+<link rel="stylesheet" th:href="@{/styles.css}"><link rel="stylesheet" th:href="@{/account.css}">
+<script th:src="@{/account.js}" defer></script></head><body>
+<a class="skip-link" href="#main">Перейти к содержимому</a>
+<th:block th:replace="~{fragments/shop :: header}"></th:block>
+<main id="main" class="workspace customer-workspace">
+<th:block th:replace="~{fragments/shop :: notices}"></th:block>
+
+<div class="page-heading"><div><p class="eyebrow">ВСЁ СОХРАНЕНО В ВАШЕМ КАБИНЕТЕ</p><h1>Заказ <em th:text="|№ ${order.id}|"></em></h1><p class="muted" th:text="|${order.date} · московское время|"></p></div><a class="quiet-link" th:href="@{/orders}">← Все заказы</a></div>
+<div class="receipt-layout"><section class="panel"><div class="section-title"><h2>Состав заказа</h2><span class="soft-badge">Оформлен · без оплаты</span></div><div class="table-scroll"><table><thead><tr><th scope="col">Продукт</th><th scope="col">Цена, ₽</th><th scope="col">Шт.</th><th scope="col" class="price">Сумма, ₽</th></tr></thead><tbody><tr th:each="line : ${order.lines}"><td th:text="${line.name}"></td><td th:text="${#numbers.formatDecimal(line.price, 1, 'WHITESPACE', 2, 'COMMA')}"></td><td th:text="${line.quantity}"></td><td class="price" th:text="${#numbers.formatDecimal(line.subtotal, 1, 'WHITESPACE', 2, 'COMMA')}"></td></tr></tbody></table></div><div class="checkout-total"><span>Итого</span><strong th:text="|${#numbers.formatDecimal(order.total, 1, 'WHITESPACE', 2, 'COMMA')} ₽|"></strong></div><p class="field-help">Состав и цены зафиксированы на момент оформления. Это запись заказа, а не подтверждение оплаты или доставки.</p></section>
+<aside class="panel receipt-details"><p class="eyebrow">ДЕТАЛИ</p><h2>Получатель</h2><dl><dt>Имя</dt><dd th:text="${order.recipient}"></dd><dt>Телефон</dt><dd th:text="${order.phone}"></dd><dt>Адрес</dt><dd th:text="${order.address}"></dd><th:block th:if="${!order.comment.isBlank()}"><dt>Комментарий</dt><dd th:text="${order.comment}"></dd></th:block></dl><form th:action="@{/orders/{id}/repeat(id=${order.id})}" method="post"><button type="submit">Повторить заказ →</button></form><p class="field-help">Продукты добавятся в текущую корзину по актуальным ценам каталога.</p></aside></div>
+</main><footer th:replace="~{fragments/shop :: footer}"></footer></body></html>
