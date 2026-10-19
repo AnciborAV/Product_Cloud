@@ -55,7 +55,7 @@ class CustomerShoppingTests {
         mvc.perform(get("/account.css")).andExpect(status().isOk());
         mvc.perform(get("/account.js")).andExpect(status().isOk());
         for (String path : new String[]{"/account", "/cart", "/orders", "/account/avatar"})
-            mvc.perform(get(path)).andExpect(status().is3xxRedirection()).andExpect(redirectedUrlPattern("**/login"));
+            mvc.perform(get(path)).andExpect(status().is3xxRedirection()).andExpect(redirectedUrl("/login"));
         mvc.perform(post("/cart/add").with(user(ALICE)).param("productId", "" + productId)).andExpect(status().isForbidden());
         assertEquals(0, carts.view(ALICE).quantity());
     }
