@@ -9,8 +9,9 @@
 <main id="main" class="workspace customer-workspace">
 <th:block th:replace="~{fragments/shop :: notices}"></th:block>
 
-<div class="page-heading"><div><p class="eyebrow">СОБИРАЕМ ХОРОШИЙ ДЕНЬ</p><h1>Ваша <em>корзина.</em></h1><p class="muted">Меняйте количество, убирайте лишнее, добавляйте любимое.</p></div><a th:href="@{/products#catalog}" class="quiet-link">← Вернуться к продуктам</a></div>
-<section class="empty-state" th:if="${cart.lines.empty}"><span aria-hidden="true">▧</span><h2>Впереди что-то вкусное</h2><p>Пока корзина пуста. Добавьте продукты из каталога — они сохранятся в вашем кабинете.</p><a class="primary" th:href="@{/products#catalog}">Выбрать продукты →</a></section>
+<div class="page-heading"><div><p class="eyebrow">СОБИРАЕМ ХОРОШИЙ ДЕНЬ</p><h1>Ваша <em>корзина.</em></h1><p class="muted">Меняйте количество, убирайте лишнее, добавляйте любимое.</p></div><a th:href="@{/products#catalog}" class="quiet-link">← Мой список продуктов</a></div>
+<div class="cart-quick-add"><th:block th:replace="~{fragments/manual-product :: form}"></th:block></div>
+<section class="empty-state" th:if="${cart.lines.empty}"><span aria-hidden="true">▧</span><h2>Впереди что-то вкусное</h2><p>Пока корзина пуста. Введите название и цену продукта в форме выше.</p><a class="primary" th:href="@{/products#catalog}">Открыть мой список →</a></section>
 <div class="cart-layout" th:unless="${cart.lines.empty}"><section class="panel cart-products" aria-labelledby="cart-title"><div class="section-title"><h2 id="cart-title">Ваши продукты</h2><form th:action="@{/cart/clear}" method="post"><button class="text-button danger" type="submit">Очистить корзину</button></form></div>
 <article th:each="line : ${cart.lines}" class="cart-row"><div class="cart-product-icon" aria-hidden="true">▧</div><div class="cart-product-name"><h3 th:text="${line.name}"></h3><p th:text="|${#numbers.formatDecimal(line.price, 1, 'WHITESPACE', 2, 'COMMA')} ₽ / шт.|"></p></div><div class="cart-controls">
 <div class="quantity-control"><form th:action="@{/cart/update}" method="post"><input type="hidden" name="productId" th:value="${line.productId}"><input type="hidden" name="quantity" th:value="${line.quantity - 1}"><button type="submit" th:disabled="${line.quantity == 1}" th:aria-label="|Уменьшить количество: ${line.name}|">−</button></form>

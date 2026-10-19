@@ -907,3 +907,24 @@ input[type=file]::file-selector-button {
         scroll-behavior:auto
     }
 }
+
+/* Личный список: никаких заранее заполненных товаров. */
+.manual-list-layout { display:grid; grid-template-columns:minmax(280px,.85fr) minmax(0,1.3fr); gap:26px; margin:28px 0 45px; align-items:start; }
+.manual-product-panel { background:#eef3e5; }
+.manual-product-panel h2 { font-size:26px; }
+.manual-product-panel .form-note { max-width:none; }
+.saved-products-panel h2 { font-size:26px; }
+.saved-product { display:flex; justify-content:space-between; gap:22px; padding:22px 0; border-bottom:1px solid var(--line); align-items:center; }
+.saved-product > div:first-child { min-width:0; }
+.saved-product h3 { margin:0 0 8px; font-size:14px; overflow-wrap:anywhere; }
+.saved-product p { font-size:11px; color:var(--muted); margin:0; }
+.saved-product-actions { display:flex; flex-direction:column; gap:12px; align-items:flex-end; flex-shrink:0; }
+.saved-products-footer { display:flex; flex-wrap:wrap; gap:22px; justify-content:space-between; align-items:center; margin-top:25px; }
+.saved-products-footer > p { flex-basis:100%; margin:0; }
+.guest-list { margin:25px 0 40px; }
+.cart-quick-add { margin:0 0 26px; }
+.cart-quick-add .manual-product-form { display:grid; grid-template-columns:minmax(0,1.5fr) minmax(120px,.7fr) auto; gap:20px; align-items:start; }
+.cart-quick-add .manual-product-form button { margin-top:44px; }
+.cart-quick-add .form-note { margin-bottom:0; }
+@media(max-width:950px) { .manual-list-layout { grid-template-columns:1fr; } .cart-quick-add .manual-product-form { grid-template-columns:minmax(0,1.5fr) minmax(120px,1fr); } .cart-quick-add .manual-product-form button { grid-column:1 / -1; margin-top:0; } }
+@media(max-width:650px) { .manual-list-layout { gap:20px; margin-top:22px; } .saved-product { align-items:flex-start; gap:15px; } .saved-product-actions .small-button { font-size:10px; padding:10px 9px; } .saved-product h3 { font-size:13px; } .cart-quick-add .manual-product-form { grid-template-columns:1fr; gap:0; } .cart-quick-add .manual-product-form button { margin-top:22px; } .saved-products-footer { gap:18px; } }

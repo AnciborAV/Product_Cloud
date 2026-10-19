@@ -71,7 +71,7 @@ class ProductCloudJpaApplicationTests {
     void rendersEmptyCatalogAndRedirectsHome() throws Exception {
         mvc.perform(get("/")).andExpect(redirectedUrl("/products"));
         mvc.perform(get("/products")).andExpect(status().isOk())
-                .andExpect(content().string(containsString("Здесь пока нет товаров")));
+                .andExpect(content().string(containsString("Ваш список пока пуст")));
         mvc.perform(get("/styles.css")).andExpect(status().isOk());
     }
 
@@ -81,7 +81,7 @@ class ProductCloudJpaApplicationTests {
     @Test
     void createsProductWithExactPriceAndRedirects() throws Exception {
         mvc.perform(post("/products").with(csrf()).param("name", "  Книга  ").param("price", "19.90"))
-                .andExpect(status().is3xxRedirection()).andExpect(redirectedUrl("/products"));
+                .andExpect(status().is3xxRedirection()).andExpect(redirectedUrl("/cart"));
         var product = repository.findAll().getFirst();
         assertEquals("Книга", product.getName());
         assertEquals(new BigDecimal("19.90"), product.getPrice());
@@ -133,7 +133,7 @@ class ProductCloudJpaApplicationTests {
      */
     @Test
     void escapesHtmlInProductNames() throws Exception {
-        service.createProduct("<script>alert(1)</script>", BigDecimal.ONE);
+        service.createInCart(accounts.view("catalog-test@example.com").id(), "<script>alert(1)</script>", BigDecimal.ONE);
         mvc.perform(get("/products")).andExpect(status().isOk())
                 .andExpect(content().string(not(containsString("<script>alert(1)</script>"))))
                 .andExpect(content().string(containsString("&lt;script&gt;")));

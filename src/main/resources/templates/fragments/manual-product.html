@@ -1,0 +1,8 @@
+<!DOCTYPE html><html lang="ru" xmlns:th="http://www.thymeleaf.org"><body>
+<section th:fragment="form" class="panel manual-product-panel" aria-labelledby="form-heading">
+<p class="eyebrow">ВПИШИТЕ ТО, ЧТО НУЖНО ВАМ</p><h2 id="form-heading">Добавить свой продукт</h2><p class="form-note">Название и цена — и продукт сразу в вашей корзине.</p>
+<form th:action="@{/products}" th:object="${productForm}" method="post" class="manual-product-form">
+<div><label for="name">Название продукта</label><input id="name" th:field="*{name}" maxlength="255" autocomplete="off" required placeholder="Например, молоко" aria-describedby="name-error"><p id="name-error" class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p></div>
+<div><label for="price">Цена за единицу, ₽</label><input id="price" type="number" th:field="*{price}" min="0" step="0.01" required placeholder="0,00" aria-describedby="price-error"><p id="price-error" class="error" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></p></div>
+<button type="submit">Добавить в мою корзину →</button></form></section>
+</body></html>

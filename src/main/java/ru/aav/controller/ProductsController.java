@@ -23,12 +23,14 @@ import ru.aav.service.ProductService;
 @Controller
 public class ProductsController {
     private final ProductService productService;
+    private final ru.aav.account.AccountService accounts;
 
     /**
      * Spring передаёт готовый сервис через конструктор; контроллер не создаёт его сам.
      */
-    public ProductsController(ProductService productService) {
+    public ProductsController(ProductService productService, ru.aav.account.AccountService accounts) {
         this.productService = productService;
+        this.accounts = accounts;
     }
 
     /**
@@ -48,13 +50,13 @@ public class ProductsController {
      * Строка products разрешается в resources/templates/products.html.
      */
     @GetMapping("/products")
-    public String viewProducts(@RequestParam(defaultValue = "0") int page, Model model) {
+    public String viewProducts(@RequestParam(defaultValue = "0") int page, Model model, java.security.Principal principal) {
         // Явно отклоняем отрицательные и чрезмерно большие номера ответом HTTP 400.
         if (page < 0 || page > 1_000_000) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid page");
         }
         model.addAttribute("productForm", new ProductForm("", null));
-        model.addAttribute("products", productService.getProducts(page));
+        model.addAttribute("products", principal == null ? org.springframework.data.domain.Page.empty() : productService.getPersonalProducts(accounts.view(principal.getName()).id(), page));
         return "products";
     }
 
@@ -71,15 +73,31 @@ public class ProductsController {
     @PostMapping("/products")
     public String addProduct(@Valid @ModelAttribute ProductForm productForm,
                              BindingResult errors, Model model,
-                             RedirectAttributes redirect, HttpServletResponse response) {
+                             RedirectAttributes redirect, HttpServletResponse response, java.security.Principal principal) {
         if (errors.hasErrors()) {
             response.setStatus(HttpStatus.BAD_REQUEST.value());
             // Повторно заполняем каталог: новая HTML-страница нуждается в этих данных.
-            model.addAttribute("products", productService.getProducts(0));
+            model.addAttribute("products", productService.getPersonalProducts(accounts.view(principal.getName()).id(), 0));
             return "products";
         }
-        productService.createProduct(productForm.name(), productForm.price());
-        redirect.addFlashAttribute("success", "Товар добавлен");
-        return "redirect:/products";
+        productService.createInCart(accounts.view(principal.getName()).id(), productForm.name(), productForm.price());
+        redirect.addFlashAttribute("success", "Продукт добавлен в вашу корзину и сохранён в личном списке");
+        return "redirect:/cart";
+    }
+
+    /** Очищает только личные продукты вошедшего пользователя. */
+    @PostMapping("/products/clear")
+    public String clear(java.security.Principal principal, RedirectAttributes redirect) {
+        productService.clearPersonal(accounts.view(principal.getName()).id());
+        redirect.addFlashAttribute("success", "Ваш список продуктов очищен. Эти позиции также удалены из корзины");
+        return "redirect:/products#catalog";
+    }
+
+    @PostMapping("/products/{id}/remove")
+    public String remove(@org.springframework.web.bind.annotation.PathVariable int id,
+                         java.security.Principal principal, RedirectAttributes redirect) {
+        productService.deletePersonal(accounts.view(principal.getName()).id(), id);
+        redirect.addFlashAttribute("success", "Продукт удалён из вашего списка и корзины");
+        return "redirect:/products#catalog";
     }
 }

@@ -25,13 +25,17 @@ public class ProductService {
     // Ограничиваем объём одной выдачи, чтобы не загружать весь каталог в память.
     private static final int PAGE_SIZE = 20;
     private final ProductRepository repository;
+    private final ru.aav.account.AccountRepository accounts;
+    private final ru.aav.cart.CartRepository carts;
 
     /**
      * Внедрение зависимости через конструктор: Spring передаёт реализацию репозитория.
      * final фиксирует зависимость; единственному конструктору @Autowired не требуется.
      */
-    public ProductService(ProductRepository repository) {
+    public ProductService(ProductRepository repository, ru.aav.account.AccountRepository accounts, ru.aav.cart.CartRepository carts) {
         this.repository = repository;
+        this.accounts = accounts;
+        this.carts = carts;
     }
 
     /**
@@ -84,6 +88,39 @@ public class ProductService {
     @Transactional
     public void deleteProduct(int id) {
         repository.delete(requireProduct(id));
+    }
+
+    /** Личный список не включает старые общие записи и продукты других пользователей. */
+    public Page<ProductView> getPersonalProducts(long ownerId, int page) {
+        return repository.findByOwnerId(ownerId, PageRequest.of(page, PAGE_SIZE, Sort.by("id"))).map(ProductView::from);
+    }
+
+    /** Один ввод сразу создаёт личный продукт и строку корзины в одной транзакции. */
+    @Transactional
+    public ProductView createInCart(long ownerId, String name, BigDecimal price) {
+        var account = accounts.findLockedById(ownerId).orElseThrow();
+        var product = repository.save(new Product(name, price, ownerId));
+        carts.save(new ru.aav.cart.CartItem(account, product, 1));
+        return ProductView.from(product);
+    }
+
+    /** Удаление из сохранённого списка также убирает позицию из своей корзины. История заказов остаётся. */
+    @Transactional
+    public void deletePersonal(long ownerId, int productId) {
+        accounts.findLockedById(ownerId).orElseThrow();
+        var product = repository.findByIdAndOwnerId(productId, ownerId).orElseThrow(() -> new ProductNotFoundException(productId));
+        carts.deleteByAccountIdAndProductId(ownerId, productId);
+        carts.flush();
+        repository.delete(product);
+    }
+
+    /** Очищает весь личный список, включая все страницы. Чужие записи и старый общий каталог не затрагивает. */
+    @Transactional
+    public void clearPersonal(long ownerId) {
+        accounts.findLockedById(ownerId).orElseThrow();
+        carts.deleteByAccountIdAndProductOwnerId(ownerId, ownerId);
+        carts.flush();
+        repository.deleteAll(repository.findAllByOwnerId(ownerId));
     }
 
     /**

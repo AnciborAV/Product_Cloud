@@ -36,6 +36,7 @@ public class CartController {
             while (tokens.size() > 20) tokens.remove(tokens.iterator().next());
             session.setAttribute("checkoutTokens", tokens);
         }
+        model.addAttribute("productForm", new ru.aav.controller.ProductForm("", null));
         model.addAttribute("checkout", new CheckoutForm(a.displayName(), a.phone(), a.address(), "", token));
         model.addAttribute("cart", carts.view(principal.getName()));
         return "cart";
@@ -75,6 +76,7 @@ public class CartController {
             catch (IllegalArgumentException ex) { model.addAttribute("formError", ex.getMessage()); }
         }
         response.setStatus(400);
+        model.addAttribute("productForm", new ru.aav.controller.ProductForm("", null));
         model.addAttribute("cart", carts.view(principal.getName()));
         return "cart";
     }

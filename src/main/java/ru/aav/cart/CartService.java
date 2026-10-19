@@ -26,6 +26,8 @@ public class CartService {
         var a = lock(email);
         if (quantity < 1 || quantity > 99) throw new IllegalArgumentException("Количество должно быть от 1 до 99");
         var p = products.findById(productId).orElseThrow(() -> new ProductNotFoundException(productId));
+        if (p.getOwnerId() != null && !p.getOwnerId().equals(a.getId()))
+            throw new ProductNotFoundException(productId);
         var line = cart.findByAccountIdAndProductId(a.getId(), productId);
         if (line.isPresent()) line.get().setQuantity(line.get().getQuantity() + quantity);
         else cart.save(new CartItem(a, p, quantity));

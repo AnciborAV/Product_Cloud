@@ -17,70 +17,24 @@
     <section class="hero" aria-labelledby="hero-title">
         <div class="hero-copy"><p class="eyebrow"><span></span> ПРОСТО. СВЕЖО. СО ВКУСОМ.</p>
             <h1 id="hero-title">Всё хорошее —<br>к вашему <em>столу.</em></h1>
-            <p class="hero-description">Хрустящие овощи, ароматный хлеб и любимые продукты.<br class="desktop-break"> Для неспешных завтраков, семейных ужинов<br class="desktop-break"> и маленьких радостей каждый день.</p>
-            <a class="primary" href="#catalog">Посмотреть продукты <span aria-hidden="true">↗</span></a>
+            <p class="hero-description">Запишите нужные продукты и укажите цены.<br class="desktop-break"> Собирайте свою корзину, меняйте количество<br class="desktop-break"> и планируйте покупки с удовольствием.</p>
+            <a class="primary" href="#catalog">Составить свой список <span aria-hidden="true">↗</span></a>
             <div class="hero-footnote"><span class="leaf" aria-hidden="true">✳</span><span>Вкусная жизнь складывается<br><b>из простых вещей</b></span></div>
         </div>
         <div class="hero-art"><img src="/images/grocery-hero.webp" th:src="@{/images/grocery-hero.webp}" alt="Свежие помидоры, морковь, авокадо, зелень, хлеб, молоко и яйца" width="1536" height="1024" fetchpriority="high"><div class="art-label">На каждый день.<br><strong>С удовольствием.</strong></div></div>
     </section>
-    <div class="values"><div><span aria-hidden="true">01</span><p><strong>От завтрака до ужина</strong><small>Всё для вашего ежедневного меню</small></p></div><div><span aria-hidden="true">02</span><p><strong>Любимые продукты</strong><small>Привычные вкусы и новые сочетания</small></p></div><div><span aria-hidden="true">03</span><p><strong>Удобный каталог</strong><small>Название и цена — всегда перед глазами</small></p></div></div>
-    <section id="categories" class="categories" aria-labelledby="category-title"><div class="section-title"><div><p class="eyebrow">НАЧНИТЕ С ТОГО, ЧТО ЛЮБИТЕ</p><h2 id="category-title">На любой вкус</h2></div><a href="#catalog">К каталогу <span aria-hidden="true">↗</span></a></div>
-    <div class="category-grid">
-        <article class="category-card"><div class="category-image"><img src="/images/vegetables.webp" th:src="@{/images/vegetables.webp}" alt="Овощи и зелень" width="480" height="480" loading="lazy"></div><h3>Овощи и зелень</h3><p>Больше цвета на тарелке</p></article>
-        <article class="category-card"><div class="category-image"><img src="/images/fruit.webp" th:src="@{/images/fruit.webp}" alt="Фрукты и ягоды" width="480" height="480" loading="lazy"></div><h3>Фрукты и ягоды</h3><p>Маленькие радости природы</p></article>
-        <article class="category-card"><div class="category-image"><img src="/images/dairy.webp" th:src="@{/images/dairy.webp}" alt="Молоко и яйца" width="480" height="480" loading="lazy"></div><h3>Молоко и яйца</h3><p>Для доброго утра</p></article>
-        <article class="category-card"><div class="category-image"><img src="/images/bakery.webp" th:src="@{/images/bakery.webp}" alt="Хлеб и выпечка" width="480" height="480" loading="lazy"></div><h3>Хлеб и выпечка</h3><p>С ароматом домашнего уюта</p></article>
-        <article class="category-card"><div class="category-image"><img src="/images/fish.webp" th:src="@{/images/fish.webp}" alt="Рыба и морепродукты" width="480" height="480" loading="lazy"></div><h3>Рыба и морепродукты</h3><p>Вдохновение для ужина</p></article>
-        <article class="category-card"><div class="category-image"><img src="/images/pantry.webp" th:src="@{/images/pantry.webp}" alt="Бакалея" width="480" height="480" loading="lazy"></div><h3>Бакалея</h3><p>Всё самое необходимое</p></article>
-    </div></section>
-    <section class="season-banner" aria-labelledby="season-title"><div><p class="eyebrow">ПРОСТЫЕ ИНГРЕДИЕНТЫ. БОЛЬШЕ ВДОХНОВЕНИЯ.</p><h2 id="season-title">Добавьте свежести<br>в привычный день.</h2><a href="#catalog">Соберите своё меню <span aria-hidden="true">→</span></a></div><img src="/images/vegetables.webp" th:src="@{/images/vegetables.webp}" alt="Спелые томаты, брокколи и свежая морковь" width="480" height="480" loading="lazy"></section>
-    <header class="catalog-intro" id="catalog"><p class="eyebrow">ВАШ ПРОДУКТОВЫЙ МАГАЗИН</p><h2>Каталог продуктов</h2><p class="muted">Всё, что есть в ассортименте, — в одном месте.</p></header>
+    <div class="values"><div><span aria-hidden="true">01</span><p><strong>От завтрака до ужина</strong><small>Всё для вашего ежедневного меню</small></p></div><div><span aria-hidden="true">02</span><p><strong>Любимые продукты</strong><small>Привычные вкусы и новые сочетания</small></p></div><div><span aria-hidden="true">03</span><p><strong>Ваш личный список</strong><small>Добавление, удаление и очистка — под рукой</small></p></div></div>
+    <header class="catalog-intro" id="catalog"><p class="eyebrow">ТОЛЬКО ТО, ЧТО ВЫ ДОБАВИЛИ САМИ</p><h2>Мой список продуктов</h2><p class="muted">Введите название и цену. Удаляйте отдельные позиции или очищайте весь список.</p></header>
     <th:block th:replace="~{fragments/shop :: notices}"></th:block>
-    <div class="layout" th:classappend="${viewer == null} ? 'catalog-guest' : ''">
-        <section class="panel" aria-labelledby="catalog-heading">
-            <div class="panel-heading">
-                <h2 id="catalog-heading">Продукты в каталоге</h2>
-                <span class="badge" th:text="${products.totalElements}">0</span>
-            </div>
-            <p class="empty" th:if="${products.empty}">Здесь пока нет товаров. Добавьте первый.</p>
-            <!-- th:unless — обратное условие: таблица нужна, когда страница не пуста. -->
-            <div class="table-scroll" th:unless="${products.empty}">
-                <table>
-                    <thead><tr><th scope="col">Название</th><th scope="col" class="price">Цена, ₽</th><th scope="col">В корзину</th></tr></thead>
-                    <tbody>
-                    <!-- th:each перебирает DTO текущей страницы, th:text экранирует HTML в названии. -->
-                    <tr th:each="product : ${products.content}">
-                        <td th:text="${product.name}"></td>
-                        <!-- Форматируем отображение цены; исходное BigDecimal в базе не меняется. -->
-                        <td class="price" th:text="${#numbers.formatDecimal(product.price, 1, 'WHITESPACE', 2, 'COMMA')}"></td>
-                        <td><form class="catalog-buy" th:if="${viewer != null}" th:action="@{/cart/add}" method="post"><input type="hidden" name="productId" th:value="${product.id}"><input type="number" name="quantity" value="1" min="1" max="99" required th:aria-label="|Количество: ${product.name}|"><button type="submit" th:aria-label="|Добавить в корзину: ${product.name}|">+ В корзину</button></form><a class="login-to-buy" th:unless="${viewer != null}" th:href="@{/login}">Войти и добавить ↗</a></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-            <!-- Page хранит номер и число страниц; ссылки выполняют обычные GET-запросы. -->
-            <nav class="pagination" aria-label="Страницы каталога" th:if="${products.totalPages > 1}">
-                <a th:if="${products.hasPrevious()}" th:href="@{/products(page=${products.number - 1})}">← Назад</a>
-                <span th:text="|Страница ${products.number + 1} из ${products.totalPages}|"></span>
-                <a th:if="${products.hasNext()}" th:href="@{/products(page=${products.number + 1})}">Далее →</a>
-            </nav>
-        </section>
-        <section class="panel" aria-labelledby="form-heading" th:if="${viewer != null}">
-            <h2 id="form-heading">Добавить продукт</h2><p class="form-note">Пополните ассортимент магазина новым продуктом.</p>
-            <!-- th:object выбирает ProductForm; *{...} обращается к его полям. -->
-            <form th:action="@{/products}" th:object="${productForm}" method="post">
-                <label for="name">Название продукта</label>
-                <!-- th:field связывает имя поля и значение; required помогает в браузере, но не заменяет серверную проверку. -->
-                <input id="name" autocomplete="off" th:field="*{name}" maxlength="255" required aria-describedby="name-error">
-                <!-- BindingResult содержит ошибки, которые выводятся через th:errors. -->
-                <p id="name-error" class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
-                <label for="price">Цена, ₽</label>
-                <input id="price" type="number" th:field="*{price}" min="0" step="0.01" required aria-describedby="price-error">
-                <p id="price-error" class="error" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></p>
-                <button type="submit">Добавить товар</button>
-            </form>
-        </section>
+    <div class="manual-list-layout" th:if="${viewer != null}">
+        <th:block th:replace="~{fragments/manual-product :: form}"></th:block>
+        <section class="panel saved-products-panel" aria-labelledby="saved-heading"><div class="panel-heading"><h2 id="saved-heading">Мои продукты</h2><span class="badge" th:text="${products.totalElements}">0</span></div>
+        <p class="empty" th:if="${products.empty}">Ваш список пока пуст. Добавьте первый продукт — он сразу появится в корзине.</p>
+        <article class="saved-product" th:each="product : ${products.content}"><div><h3 th:text="${product.name}"></h3><p th:text="|${#numbers.formatDecimal(product.price, 1, 'WHITESPACE', 2, 'COMMA')} ₽ / шт.|"></p></div><div class="saved-product-actions"><form th:action="@{/cart/add}" method="post"><input type="hidden" name="productId" th:value="${product.id}"><button type="submit" class="outline small-button" th:aria-label="|Добавить в корзину: ${product.name}|">Ещё в корзину +</button></form><form th:action="@{/products/{id}/remove(id=${product.id})}" method="post"><button type="submit" class="text-button danger" th:aria-label="|Удалить из моего списка: ${product.name}|">Удалить из списка</button></form></div></article>
+        <nav class="pagination" aria-label="Страницы личного списка" th:if="${products.totalPages > 1}"><a th:if="${products.hasPrevious()}" th:href="@{/products(page=${products.number - 1})}">← Назад</a><span th:text="|Страница ${products.number + 1} из ${products.totalPages}|"></span><a th:if="${products.hasNext()}" th:href="@{/products(page=${products.number + 1})}">Далее →</a></nav>
+        <div class="saved-products-footer" th:unless="${products.empty}"><a th:href="@{/cart}" class="quiet-link">Открыть мою корзину →</a><form th:action="@{/products/clear}" method="post"><button type="submit" class="text-button danger">Очистить мой список</button></form><p class="field-help">Удаление из списка также убирает эти продукты из корзины. История заказов сохраняется.</p></div></section>
     </div>
+    <section class="empty-state guest-list" th:unless="${viewer != null}"><h2>Ваши продукты. Ваши цены.</h2><p>Войдите, чтобы составить свой список и добавлять продукты в личную корзину.</p><a class="primary" th:href="@{/login}">Войти и составить список →</a></section>
 <section id="about" class="about"><div><p class="eyebrow">ЭТО PRODUCT CLOUD</p><h2>Хорошие продукты.<br><em>Простое удовольствие.</em></h2></div><p>Любимый хлеб к завтраку. Овощи для нового рецепта. Что-нибудь вкусное к чаю. Мы верим, что именно из таких простых вещей складывается хороший день.</p></section>
 </main><footer><a class="footer-brand" href="#hero-title">Product <b>Cloud</b></a><p>Больше вкуса в каждом дне.</p><a href="#hero-title">Наверх ↑</a></footer>
 </body>

@@ -51,7 +51,7 @@ class CustomerShoppingTests {
     }
 
     @Test void publicCatalogAndPrivateRoutesHaveCorrectAccess() throws Exception {
-        mvc.perform(get("/products")).andExpect(status().isOk()).andExpect(content().string(containsString("Войти и добавить")));
+        mvc.perform(get("/products")).andExpect(status().isOk()).andExpect(content().string(containsString("Войдите, чтобы составить свой список")));
         mvc.perform(get("/account.css")).andExpect(status().isOk());
         mvc.perform(get("/account.js")).andExpect(status().isOk());
         for (String path : new String[]{"/account", "/cart", "/orders", "/account/avatar"})
@@ -176,4 +176,55 @@ class CustomerShoppingTests {
         assertThrows(IllegalArgumentException.class, () -> carts.add(ALICE, productId, 1));
         assertEquals(99, carts.view(ALICE).quantity());
     }
+
+    @Test void manualEntryAddsDirectlyToOwnCartAndHidesLegacyCatalog() throws Exception {
+        products.createProduct("Война и мир", new BigDecimal("500.00"));
+        mvc.perform(post("/products").with(user(ALICE)).with(csrf()).param("name", "Молоко")
+                .param("price", "89.90")).andExpect(redirectedUrl("/cart"));
+        assertEquals(1, carts.view(ALICE).quantity());
+        assertEquals(new BigDecimal("89.90"), carts.view(ALICE).total());
+        assertEquals(0, carts.view(BOB).quantity());
+        mvc.perform(get("/products").with(user(ALICE))).andExpect(status().isOk())
+                .andExpect(content().string(containsString("Молоко")))
+                .andExpect(content().string(not(containsString("Война и мир"))));
+        mvc.perform(get("/products").with(user(BOB))).andExpect(status().isOk())
+                .andExpect(content().string(not(containsString("Молоко"))))
+                .andExpect(content().string(not(containsString("Война и мир"))));
+        var personal = products.getPersonalProducts(accounts.view(ALICE).id(), 0).getContent().getFirst();
+        mvc.perform(post("/cart/add").with(user(BOB)).with(csrf()).param("productId", "" + personal.id()))
+                .andExpect(status().isNotFound());
+        mvc.perform(post("/products/" + personal.id() + "/remove").with(user(BOB)).with(csrf()))
+                .andExpect(status().isNotFound());
+        assertEquals(1, carts.view(ALICE).quantity());
+    }
+
+    @Test void removesPersonalProductAndClearsOnlyOwnListAcrossPages() throws Exception {
+        long alice = accounts.view(ALICE).id(), bob = accounts.view(BOB).id();
+        var first = products.createInCart(alice, "Молоко", new BigDecimal("89.90"));
+        products.createInCart(bob, "Хлеб Бориса", new BigDecimal("70.00"));
+        mvc.perform(post("/products/" + first.id() + "/remove").with(user(ALICE)).with(csrf()))
+                .andExpect(redirectedUrl("/products#catalog"));
+        assertTrue(products.getPersonalProducts(alice, 0).isEmpty());
+        assertEquals(0, carts.view(ALICE).quantity());
+        for (int i = 0; i < 21; i++) products.createInCart(alice, "Продукт " + i, BigDecimal.ONE);
+        assertEquals(21, products.getPersonalProducts(alice, 0).getTotalElements());
+        mvc.perform(post("/products/clear").with(user(ALICE)).with(csrf())).andExpect(redirectedUrl("/products#catalog"));
+        assertEquals(0, products.getPersonalProducts(alice, 0).getTotalElements());
+        assertEquals(0, carts.view(ALICE).quantity());
+        assertEquals(1, products.getPersonalProducts(bob, 0).getTotalElements());
+        assertEquals(1, carts.view(BOB).quantity());
+    }
+
+    @Test void clearingListPreservesPreviouslyPlacedOrderSnapshots() {
+        long alice = accounts.view(ALICE).id();
+        var product = products.createInCart(alice, "Яблоки", new BigDecimal("120.00"));
+        long order = orders.checkout(ALICE, new CheckoutForm("Алиса", "123", "Адрес", "", java.util.UUID.randomUUID().toString()));
+        carts.add(ALICE, product.id(), 1);
+        products.clearPersonal(alice);
+        assertEquals(0, carts.view(ALICE).quantity());
+        assertEquals("Яблоки", orders.get(ALICE, order).lines().getFirst().name());
+        assertEquals(new BigDecimal("120.00"), orders.get(ALICE, order).total());
+        assertThrows(IllegalArgumentException.class, () -> orders.repeat(ALICE, order));
+    }
+
 }

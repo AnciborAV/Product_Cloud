@@ -38,6 +38,17 @@ public class Product {
     @Column(nullable = false, precision = 19, scale = 2)
     private BigDecimal price;
 
+    // null — запись старого общего каталога; новые записи принадлежат конкретному пользователю.
+    @Column(name = "owner_id")
+    private Long ownerId;
+
+    public Product(String name, BigDecimal price, Long ownerId) {
+        this(name, price);
+        this.ownerId = java.util.Objects.requireNonNull(ownerId);
+    }
+
+    public Long getOwnerId() { return ownerId; }
+
     /**
      * Конструктор без аргументов нужен JPA для восстановления объекта из базы.
      * protected оставляет его доступным ORM, но не делает основным способом создания товара.
