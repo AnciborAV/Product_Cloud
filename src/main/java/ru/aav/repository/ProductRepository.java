@@ -12,4 +12,7 @@ import ru.aav.model.Product;
  * findAll(Pageable) получает страницу данных, а не весь каталог.
  */
 public interface ProductRepository extends JpaRepository<Product, Integer> {
+    org.springframework.data.domain.Page<Product> findByOwnerId(Long ownerId, org.springframework.data.domain.Pageable pageable);
+    java.util.List<Product> findAllByOwnerId(Long ownerId);
+    java.util.Optional<Product> findByIdAndOwnerId(Integer id, Long ownerId);
 }

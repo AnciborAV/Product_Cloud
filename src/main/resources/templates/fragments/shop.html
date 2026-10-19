@@ -2,8 +2,8 @@
 <th:block th:fragment="header">
 <div class="topline"><span>Хороший день начинается с хороших продуктов</span><span>Product Cloud · ваш продуктовый магазин</span></div>
 <header class="site-header shop-header">
-<a class="brand" th:href="@{/products}" aria-label="Product Cloud — каталог"><svg class="brand-icon" viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="M10 29h21a7 7 0 0 0 0-14 11 11 0 0 0-21-3A8.5 8.5 0 0 0 10 29Z" stroke="currentColor" stroke-width="2.5"/><path d="M17 29V18m0 5c0-6 8-8 8-8 0 7-8 8-8 8Z" stroke="currentColor" stroke-width="2"/></svg><span>Product <b>Cloud</b><small>ПРОДУКТЫ ДЛЯ ХОРОШЕГО ДНЯ</small></span></a>
-<nav aria-label="Основная навигация" class="shop-nav"><a th:href="@{/products#catalog}">Каталог</a><a th:href="@{/orders}" th:if="${viewer != null}">Мои заказы</a>
+<a class="brand" th:href="@{/products}" aria-label="Product Cloud — мои продукты"><svg class="brand-icon" viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="M10 29h21a7 7 0 0 0 0-14 11 11 0 0 0-21-3A8.5 8.5 0 0 0 10 29Z" stroke="currentColor" stroke-width="2.5"/><path d="M17 29V18m0 5c0-6 8-8 8-8 0 7-8 8-8 8Z" stroke="currentColor" stroke-width="2"/></svg><span>Product <b>Cloud</b><small>ПРОДУКТЫ ДЛЯ ХОРОШЕГО ДНЯ</small></span></a>
+<nav aria-label="Основная навигация" class="shop-nav"><a th:href="@{/products#catalog}">Мои продукты</a><a th:href="@{/orders}" th:if="${viewer != null}">Мои заказы</a>
 <a class="account-link" th:href="@{/account}" th:if="${viewer != null}"><img th:if="${viewer.hasAvatar}" th:src="@{/account/avatar}" alt="" class="mini-avatar" width="30" height="30"><span th:unless="${viewer.hasAvatar}" class="mini-avatar initials" th:text="${viewer.initials}"></span><span class="nav-name" th:text="${viewer.displayName}"></span></a>
 <a th:href="@{/login}" th:unless="${viewer != null}">Войти</a><a class="nav-action" th:href="@{/cart}">Корзина <span class="cart-count" th:text="${cartQuantity}">0</span></a>
 </nav></header>
