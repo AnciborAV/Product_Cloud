@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#20583c"><title>Вход — Product Cloud</title>
+<link rel="stylesheet" th:href="@{/styles.css}"><link rel="stylesheet" th:href="@{/account.css}">
+<script th:src="@{/account.js}" defer></script></head><body>
+<a class="skip-link" href="#main">Перейти к содержимому</a>
+<th:block th:replace="~{fragments/shop :: header}"></th:block>
+<main id="main" class="workspace customer-workspace">
+<th:block th:replace="~{fragments/shop :: notices}"></th:block>
+
+<div class="auth-layout"><section class="auth-story"><p class="eyebrow">ВАШЕ МЕСТО В PRODUCT CLOUD</p><h1>С возвращением<br>к <em>любимому.</em></h1><p>Своя корзина. Знакомые вкусы.<br>Вся история покупок — под рукой.</p><img th:src="@{/images/grocery-hero.webp}" alt="Свежие продукты для вашего стола" width="1536" height="1024"></section>
+<section class="panel auth-panel" aria-labelledby="login-title"><p class="eyebrow">РАДЫ ВАС ВИДЕТЬ</p><h2 id="login-title">Войти в кабинет</h2><p class="muted">Укажите email и пароль вашей учётной записи.</p>
+<p class="notice notice-error" th:if="${param.error}" role="alert">Email или пароль указаны неверно.</p>
+<p class="notice" th:if="${param.logout}" role="status">Вы вышли из кабинета.</p><p class="notice" th:if="${param.passwordChanged}" role="status">Пароль изменён. Войдите с новым паролем.</p>
+<form th:action="@{/login}" method="post"><label for="email">Электронная почта</label><input id="email" name="email" type="email" autocomplete="username" maxlength="254" required placeholder="you@example.ru">
+<label for="password">Пароль</label><input id="password" name="password" type="password" autocomplete="current-password" maxlength="128" required>
+<button type="submit">Войти в кабинет →</button></form><p class="auth-switch">Ещё нет аккаунта? <a th:href="@{/register}">Создать кабинет</a></p><a class="quiet-link" th:href="@{/products}">Продолжить просмотр каталога</a></section></div>
+</main><footer th:replace="~{fragments/shop :: footer}"></footer></body></html>

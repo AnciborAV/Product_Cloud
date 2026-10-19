@@ -40,6 +40,27 @@ jobs:
           cache: maven
       # Wrapper выбирает Maven. clean удаляет прошлую сборку; verify компилирует, тестирует и упаковывает.
       - run: ./mvnw --batch-mode --no-transfer-progress clean verify
+      # Проверяем настоящий браузер: регистрация с фото, профиль, корзина и заказы.
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install browser for customer smoke test
+        run: |
+          npm install --prefix "$RUNNER_TEMP/product-cloud-browser" --no-save playwright@1.64.1
+          "$RUNNER_TEMP/product-cloud-browser/node_modules/.bin/playwright" install --with-deps chromium
+      - name: Customer account browser smoke test
+        run: |
+          java -jar target/product-cloud-1.0.0-SNAPSHOT.jar --spring.profiles.active=demo --spring.datasource.url="jdbc:h2:file:$RUNNER_TEMP/product-cloud-ui;DB_CLOSE_ON_EXIT=FALSE" >target/browser-app.log 2>&1 &
+          APP_PID=$!
+          trap 'kill "$APP_PID" 2>/dev/null || true' EXIT
+          PLAYWRIGHT_PACKAGE="$RUNNER_TEMP/product-cloud-browser/node_modules/playwright" node .github/scripts/customer-smoke.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: customer-interface
+          path: |
+            target/ui
+            target/browser-app.log
       # Сохраняем отчёты JUnit даже при падении тестов, чтобы можно было найти причину.
       - uses: actions/upload-artifact@v4
         if: always()

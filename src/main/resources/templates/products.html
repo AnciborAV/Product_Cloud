@@ -8,17 +8,11 @@
     <meta name="description" content="Product Cloud — продуктовый магазин. Овощи и фрукты, молочные продукты, хлеб, рыба и всё для вашего стола.">
     <title>Product Cloud — продукты для хорошего дня</title>
     <link rel="stylesheet" href="/styles.css" th:href="@{/styles.css}">
+    <link rel="stylesheet" th:href="@{/account.css}">
 </head>
 <body>
 <a class="skip-link" href="#catalog">Перейти к каталогу</a>
-<div class="topline"><span>Хороший день начинается с хороших продуктов</span><span>Свежий взгляд на привычные покупки</span></div>
-<header class="site-header">
-    <a class="brand" href="/products" th:href="@{/products}" aria-label="Product Cloud — главная">
-        <svg class="brand-icon" viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="M10 29h21a7 7 0 0 0 0-14 11 11 0 0 0-21-3A8.5 8.5 0 0 0 10 29Z" stroke="currentColor" stroke-width="2.5"/><path d="M17 29V18m0 5c0-6 8-8 8-8 0 7-8 8-8 8Z" stroke="currentColor" stroke-width="2"/></svg>
-        <span>Product <b>Cloud</b><small>ПРОДУКТЫ ДЛЯ ХОРОШЕГО ДНЯ</small></span>
-    </a>
-    <nav aria-label="Основная навигация"><a href="#categories">Категории</a><a href="#about">О магазине</a><a class="nav-action" href="#catalog"><span aria-hidden="true">▦</span> Каталог продуктов</a></nav>
-</header>
+<th:block th:replace="~{fragments/shop :: header}"></th:block>
 <main class="workspace">
     <section class="hero" aria-labelledby="hero-title">
         <div class="hero-copy"><p class="eyebrow"><span></span> ПРОСТО. СВЕЖО. СО ВКУСОМ.</p>
@@ -41,9 +35,8 @@
     </div></section>
     <section class="season-banner" aria-labelledby="season-title"><div><p class="eyebrow">ПРОСТЫЕ ИНГРЕДИЕНТЫ. БОЛЬШЕ ВДОХНОВЕНИЯ.</p><h2 id="season-title">Добавьте свежести<br>в привычный день.</h2><a href="#catalog">Соберите своё меню <span aria-hidden="true">→</span></a></div><img src="/images/vegetables.webp" th:src="@{/images/vegetables.webp}" alt="Спелые томаты, брокколи и свежая морковь" width="480" height="480" loading="lazy"></section>
     <header class="catalog-intro" id="catalog"><p class="eyebrow">ВАШ ПРОДУКТОВЫЙ МАГАЗИН</p><h2>Каталог продуктов</h2><p class="muted">Всё, что есть в ассортименте, — в одном месте.</p></header>
-    <!-- th:if показывает блок только при наличии flash-сообщения после добавления. -->
-    <p class="notice" role="status" th:if="${success}" th:text="${success}"></p>
-    <div class="layout">
+    <th:block th:replace="~{fragments/shop :: notices}"></th:block>
+    <div class="layout" th:classappend="${viewer == null} ? 'catalog-guest' : ''">
         <section class="panel" aria-labelledby="catalog-heading">
             <div class="panel-heading">
                 <h2 id="catalog-heading">Продукты в каталоге</h2>
@@ -53,13 +46,14 @@
             <!-- th:unless — обратное условие: таблица нужна, когда страница не пуста. -->
             <div class="table-scroll" th:unless="${products.empty}">
                 <table>
-                    <thead><tr><th scope="col">Название</th><th scope="col" class="price">Цена, ₽</th></tr></thead>
+                    <thead><tr><th scope="col">Название</th><th scope="col" class="price">Цена, ₽</th><th scope="col">В корзину</th></tr></thead>
                     <tbody>
                     <!-- th:each перебирает DTO текущей страницы, th:text экранирует HTML в названии. -->
                     <tr th:each="product : ${products.content}">
                         <td th:text="${product.name}"></td>
                         <!-- Форматируем отображение цены; исходное BigDecimal в базе не меняется. -->
                         <td class="price" th:text="${#numbers.formatDecimal(product.price, 1, 'WHITESPACE', 2, 'COMMA')}"></td>
+                        <td><form class="catalog-buy" th:if="${viewer != null}" th:action="@{/cart/add}" method="post"><input type="hidden" name="productId" th:value="${product.id}"><input type="number" name="quantity" value="1" min="1" max="99" required th:aria-label="|Количество: ${product.name}|"><button type="submit" th:aria-label="|Добавить в корзину: ${product.name}|">+ В корзину</button></form><a class="login-to-buy" th:unless="${viewer != null}" th:href="@{/login}">Войти и добавить ↗</a></td>
                     </tr>
                     </tbody>
                 </table>
@@ -71,13 +65,13 @@
                 <a th:if="${products.hasNext()}" th:href="@{/products(page=${products.number + 1})}">Далее →</a>
             </nav>
         </section>
-        <section class="panel" aria-labelledby="form-heading">
+        <section class="panel" aria-labelledby="form-heading" th:if="${viewer != null}">
             <h2 id="form-heading">Добавить продукт</h2><p class="form-note">Пополните ассортимент магазина новым продуктом.</p>
             <!-- th:object выбирает ProductForm; *{...} обращается к его полям. -->
             <form th:action="@{/products}" th:object="${productForm}" method="post">
                 <label for="name">Название продукта</label>
                 <!-- th:field связывает имя поля и значение; required помогает в браузере, но не заменяет серверную проверку. -->
-                <input id="name" th:field="*{name}" maxlength="255" required aria-describedby="name-error">
+                <input id="name" autocomplete="off" th:field="*{name}" maxlength="255" required aria-describedby="name-error">
                 <!-- BindingResult содержит ошибки, которые выводятся через th:errors. -->
                 <p id="name-error" class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
                 <label for="price">Цена, ₽</label>

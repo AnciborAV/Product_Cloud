@@ -10,6 +10,11 @@ import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import ru.aav.model.Product;
+import ru.aav.account.*;
+import ru.aav.cart.CartRepository;
+import ru.aav.order.OrderRepository;
+import org.springframework.security.test.context.support.WithMockUser;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import ru.aav.repository.ProductRepository;
 import ru.aav.service.ProductNotFoundException;
 import ru.aav.service.ProductService;
@@ -33,6 +38,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
+@WithMockUser(username = "catalog-test@example.com")
 class ProductCloudJpaApplicationTests {
     @Autowired
     MockMvc mvc;
@@ -41,12 +47,21 @@ class ProductCloudJpaApplicationTests {
     @Autowired
     ProductService service;
 
+    @Autowired AccountService accounts;
+    @Autowired AccountRepository accountRepository;
+    @Autowired CartRepository cartRepository;
+    @Autowired OrderRepository orderRepository;
+
     /**
      * Очищает таблицу перед каждым тестом, чтобы результаты не зависели от порядка запуска.
      */
     @BeforeEach
     void clearProducts() {
+        cartRepository.deleteAll();
+        orderRepository.deleteAll();
         repository.deleteAll();
+        accountRepository.deleteAll();
+        accounts.register(new AccountForms.Registration("Тест каталога", "catalog-test@example.com", "test-password-123", "test-password-123"), null);
     }
 
     /**
@@ -65,7 +80,7 @@ class ProductCloudJpaApplicationTests {
      */
     @Test
     void createsProductWithExactPriceAndRedirects() throws Exception {
-        mvc.perform(post("/products").param("name", "  Книга  ").param("price", "19.90"))
+        mvc.perform(post("/products").with(csrf()).param("name", "  Книга  ").param("price", "19.90"))
                 .andExpect(status().is3xxRedirection()).andExpect(redirectedUrl("/products"));
         var product = repository.findAll().getFirst();
         assertEquals("Книга", product.getName());
@@ -81,7 +96,7 @@ class ProductCloudJpaApplicationTests {
     @ParameterizedTest
     @ValueSource(strings = {"-0.01", "1.001", "abc", "", "100000000000000000.00"})
     void rejectsInvalidPricesWithoutWriting(String price) throws Exception {
-        mvc.perform(post("/products").param("name", "Book").param("price", price))
+        mvc.perform(post("/products").with(csrf()).param("name", "Book").param("price", price))
                 .andExpect(status().isBadRequest()).andExpect(model().attributeHasFieldErrors("productForm", "price"));
         assertEquals(0, repository.count());
     }
@@ -92,10 +107,10 @@ class ProductCloudJpaApplicationTests {
     @Test
     void rejectsMissingBlankAndOversizedNames() throws Exception {
         for (String name : new String[]{"", "   ", "x".repeat(256)}) {
-            mvc.perform(post("/products").param("name", name).param("price", "1"))
+            mvc.perform(post("/products").with(csrf()).param("name", name).param("price", "1"))
                     .andExpect(status().isBadRequest());
         }
-        mvc.perform(post("/products").param("price", "1"))
+        mvc.perform(post("/products").with(csrf()).param("price", "1"))
                 .andExpect(status().isBadRequest());
         assertEquals(0, repository.count());
     }
@@ -106,7 +121,7 @@ class ProductCloudJpaApplicationTests {
     @Test
     void zeroPriceIsAllowedAndClientIdCannotOverwriteExistingProduct() throws Exception {
         var original = service.createProduct("Original", BigDecimal.ONE);
-        mvc.perform(post("/products").param("id", Integer.toString(original.id()))
+        mvc.perform(post("/products").with(csrf()).param("id", Integer.toString(original.id()))
                         .param("name", "New").param("price", "0.00"))
                 .andExpect(status().is3xxRedirection());
         assertEquals(2, repository.count());

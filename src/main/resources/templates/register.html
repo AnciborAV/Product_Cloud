@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#20583c"><title>Регистрация — Product Cloud</title>
+<link rel="stylesheet" th:href="@{/styles.css}"><link rel="stylesheet" th:href="@{/account.css}">
+<script th:src="@{/account.js}" defer></script></head><body>
+<a class="skip-link" href="#main">Перейти к содержимому</a>
+<th:block th:replace="~{fragments/shop :: header}"></th:block>
+<main id="main" class="workspace customer-workspace">
+<th:block th:replace="~{fragments/shop :: notices}"></th:block>
+
+<div class="auth-layout"><section class="auth-story"><p class="eyebrow">ПРОДУКТЫ. ПОКУПКИ. ВСЁ ВАШЕ.</p><h1>Больше вкуса.<br><em>Больше личного.</em></h1><p>Создайте кабинет, добавьте фотографию<br>и собирайте свою корзину хорошего дня.</p><img th:src="@{/images/grocery-hero.webp}" alt="Хлеб, овощи, молоко и яйца" width="1536" height="1024"></section>
+<section class="panel auth-panel" aria-labelledby="register-title"><p class="eyebrow">ЗНАКОМСТВО НАЧИНАЕТСЯ ЗДЕСЬ</p><h2 id="register-title">Ваш личный кабинет</h2>
+<form th:action="@{/register(_csrf=${_csrf.token})}" th:object="${registration}" method="post" enctype="multipart/form-data">
+<label for="displayName">Как вас зовут</label><input id="displayName" th:field="*{displayName}" autocomplete="name" maxlength="80" required placeholder="Ваше имя"><p class="error" th:errors="*{displayName}"></p>
+<label for="email">Электронная почта</label><input id="email" th:field="*{email}" type="email" autocomplete="username" maxlength="254" required placeholder="you@example.ru"><p class="error" th:errors="*{email}"></p>
+<div class="form-pair"><div><label for="password">Пароль</label><input id="password" name="password" type="password" autocomplete="new-password" minlength="8" maxlength="128" required><p class="error" th:errors="*{password}"></p></div><div><label for="confirmation">Повторите пароль</label><input id="confirmation" name="confirmation" type="password" autocomplete="new-password" maxlength="128" required><p class="error" th:errors="*{confirmation}"></p></div></div><p class="field-help">От 8 до 128 символов. Используйте отдельный пароль для магазина.</p>
+<label for="avatar">Ваша фотография <span class="optional">необязательно</span></label><div class="photo-upload"><img class="photo-preview" data-avatar-preview hidden alt="Предпросмотр выбранного фото" width="72" height="72"><input id="avatar" type="file" name="avatar" accept="image/jpeg,image/png" data-avatar-input><p class="field-help">JPEG или PNG, до 2 МБ. Фото будет обрезано по центру.</p></div>
+<button type="submit">Создать мой кабинет →</button></form><p class="auth-switch">Уже зарегистрированы? <a th:href="@{/login}">Войти</a></p></section></div>
+</main><footer th:replace="~{fragments/shop :: footer}"></footer></body></html>
