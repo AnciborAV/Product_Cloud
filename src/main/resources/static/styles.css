@@ -1,31 +1,603 @@
-/* Оформление страницы: Grid делит каталог и форму, media-запрос складывает их на узком экране.
-   CSS отвечает только за внешний вид; сохранение и проверки выполняются на сервере. */
-* { box-sizing: border-box; }
-:root { font-family: system-ui, sans-serif; color: #19352f; background: #f3f6f4; }
-body { margin: 0; }
-.workspace { max-width: 1120px; margin: auto; padding: 56px 24px; }
-.eyebrow { font-size: .75rem; font-weight: 700; letter-spacing: .16em; color: #477466; }
-h1 { font-size: clamp(2rem, 4vw, 3rem); letter-spacing: -.04em; margin: 12px 0; }
-h2 { font-size: 1.2rem; margin: 0 0 24px; }
-.muted { color: #64766f; margin-bottom: 36px; }
-.layout { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(270px, 1fr); gap: 24px; align-items: start; }
-.panel { background: white; border: 1px solid #dce5df; border-radius: 16px; padding: 28px; }
-.panel-heading { display: flex; align-items: baseline; justify-content: space-between; }
-.badge { background: #edf4ef; padding: 4px 10px; border-radius: 20px; }
-.table-scroll { overflow-x: auto; }
-table { border-collapse: collapse; width: 100%; }
-th, td { padding: 16px 8px; border-bottom: 1px solid #e6ece8; text-align: left; overflow-wrap: anywhere; }
-th { font-size: .8rem; color: #64766f; }
-.price { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
-label { display: block; font-size: .9rem; margin: 20px 0 8px; }
-input { width: 100%; border: 1px solid #aabdb2; border-radius: 8px; padding: 12px; font: inherit; }
-button { width: 100%; margin-top: 24px; background: #205c48; color: white; border: 0; border-radius: 8px; padding: 14px; font: inherit; cursor: pointer; }
-button:hover { background: #174735; }
-/* Видимая рамка помогает перемещаться по форме с клавиатуры. */
-:focus-visible { outline: 3px solid #4b9279; outline-offset: 3px; }
-.error { color: #a52f29; font-size: .85rem; }
-.notice { border-left: 4px solid #205c48; background: #e4f2e8; padding: 14px; }
-.empty { color: #64766f; padding: 24px 0; }
-.pagination { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; margin-top: 24px; font-size: .85rem; }
-a { color: #205c48; }
-@media (max-width: 760px) { .layout { grid-template-columns: 1fr; } .workspace { padding: 28px 16px; } .panel { padding: 20px; } }
+/* Палитра бумаги и книжных переплётов. Весь декор локальный: внешние шрифты и изображения не нужны. */
+:root {
+    --paper:#f5f2e9;
+    --ink:#233d35;
+    --muted:#72766b;
+    --line:#d9d9cb;
+    --accent:#a65136;
+    font-family:Arial,Helvetica,sans-serif;
+    color:var(--ink);
+    background:var(--paper);
+    font-synthesis:none
+}
+* {
+    box-sizing:border-box
+}
+html {
+    scroll-behavior:smooth;
+    scroll-padding-top:24px
+}
+body {
+    margin:0
+}
+a {
+    color:inherit;
+    text-decoration:none
+}
+button,input {
+    font:inherit
+}
+a,button,input {
+     -webkit-tap-highlight-color:transparent
+}
+:focus-visible {
+    outline:3px solid var(--accent);
+    outline-offset:5px
+}
+.skip-link {
+    position:absolute;
+    top:-100px;
+    left:20px;
+    background:var(--ink);
+    color:white;
+    padding:15px;
+    z-index:5
+}
+.skip-link:focus {
+    top:10px
+}
+.site-header,.workspace,footer {
+    width:min(1240px,calc(100% - 96px));
+    margin:auto
+}
+.site-header {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    min-height:115px;
+    border-bottom:1px solid var(--line)
+}
+.brand {
+    position:relative;
+    padding-left:48px;
+    font-family:Georgia,serif;
+    font-size:26px;
+    letter-spacing:-1px
+}
+.brand-icon {
+    position:absolute;
+    left:0;
+    top:1px;
+    font-size:37px;
+    color:var(--accent)
+}
+.brand small {
+    display:block;
+    font:8px Arial,sans-serif;
+    letter-spacing:2.2px;
+    margin-top:8px
+}
+nav {
+    display:flex;
+    align-items:center;
+    gap:34px;
+    font-size:13px
+}
+.nav-action {
+    border:1px solid #a8b1a4;
+    padding:13px 18px
+}
+.nav-action span {
+    margin-left:17px
+}
+.hero {
+    display:grid;
+    grid-template-columns:1.12fr 1fr;
+    align-items:center;
+    gap:25px;
+    padding:73px 0 60px
+}
+.eyebrow {
+    font-size:10px;
+    letter-spacing:2px;
+    font-weight:600;
+    color:var(--accent)
+}
+h1,h2,.book strong {
+    font-family:Georgia,'Times New Roman',serif;
+    font-weight:400
+}
+h1 {
+    font-size:clamp(42px,4.5vw,66px);
+    line-height:1.1;
+    letter-spacing:-2.7px;
+    margin:24px 0
+}
+em {
+    font-weight:400;
+    color:var(--accent)
+}
+.hero-description {
+    font-size:15px;
+    line-height:1.9;
+    color:#72776d
+}
+.primary {
+    display:inline-flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:40px;
+    background:var(--ink);
+    color:#fff;
+    padding:18px 24px;
+    font-size:13px;
+    margin-top:19px
+}
+.primary:hover {
+    background:#35584b
+}
+.hero-footnote {
+    font-size:10px;
+    color:var(--muted);
+    margin-top:43px;
+    letter-spacing:.4px
+}
+.hero-footnote span {
+    color:var(--accent);
+    margin-right:10px
+}
+.hero-art {
+    position:relative;
+    height:425px;
+    background:radial-gradient(ellipse at 50% 70%,#d8d4c3,transparent 65%)
+}
+.art-orbit {
+    position:absolute;
+    width:320px;
+    height:320px;
+    border:1px solid #d4d2bf;
+    border-radius:50%;
+    left:12%;
+    top:10px;
+    background:linear-gradient(120deg,#e8e7d9aa,#eeeee300)
+}
+.art-label {
+    position:absolute;
+    right:0;
+    top:10px;
+    writing-mode:vertical-rl;
+    line-height:1.7;
+    font-size:9px;
+    letter-spacing:3px;
+    color:#8c907e
+}
+.book {
+    position:absolute;
+    display:flex;
+    flex-direction:column;
+    color:#ece5cb;
+    border-radius:2px 5px 5px 2px;
+    box-shadow:12px 16px 20px #28342725,inset 7px 0 3px #ffffff10,inset 10px 0 1px #0002;
+    z-index:2;
+    padding:25px 21px 20px 28px;
+    border-right:4px solid #e1d5b9
+}
+.book span {
+    font-size:8px;
+    letter-spacing:1.7px
+}
+.book strong {
+    font-size:27px;
+    line-height:1.2;
+    margin-top:24px
+}
+.book i {
+    font-style:normal;
+    font-size:82px;
+    text-align:center;
+    margin:auto;
+    color:#c8b583
+}
+.book small {
+    font-size:7px;
+    letter-spacing:2px;
+    border-top:1px solid #b8b49155;
+    padding-top:12px
+}
+.book-front {
+    background:#234b43;
+    width:183px;
+    height:275px;
+    left:13%;
+    top:59px;
+    transform:rotate(-11deg)
+}
+.book-back {
+    background:#a35b40;
+    width:175px;
+    height:253px;
+    left:49%;
+    top:36px;
+    transform:rotate(12deg)
+}
+.book-back strong {
+    font-size:24px
+}
+.book-back i {
+    color:#e4b582
+}
+.book-flat {
+    left:24%;
+    top:329px;
+    width:260px;
+    height:39px;
+    flex-direction:row;
+    align-items:center;
+    gap:15px;
+    background:#b9a775;
+    color:#3e4639;
+    padding:8px 17px;
+    transform:rotate(-3deg);
+    box-shadow:5px 10px 12px #28342720
+}
+.book-flat span {
+    font-size:6px
+}
+.book-flat strong {
+    font-size:11px;
+    margin:0
+}
+.shelf {
+    position:absolute;
+    top:369px;
+    left:3%;
+    width:94%;
+    height:7px;
+    background:#b4ac91;
+    box-shadow:0 12px 16px #49483126
+}
+.art-caption {
+    position:absolute;
+    bottom:0;
+    left:16%;
+    font-size:8px;
+    letter-spacing:1.9px;
+    color:#828574
+}
+.editorial-strip {
+    border-block:1px solid var(--line);
+    display:flex;
+    justify-content:space-between;
+    padding:23px 0;
+    gap:20px;
+    font-size:10px;
+    color:var(--accent)
+}
+.editorial-strip b {
+    font-size:12px;
+    font-weight:400;
+    color:var(--ink);
+    margin-left:25px;
+    letter-spacing:.3px
+}
+.catalog-intro {
+    padding-top:64px
+}
+.catalog-intro h2 {
+    font-size:38px;
+    margin:14px 0
+}
+.muted {
+    color:var(--muted);
+    font-size:14px
+}
+.layout {
+    display:grid;
+    grid-template-columns:minmax(0,1.65fr) minmax(280px,1fr);
+    gap:40px;
+    margin:31px 0 66px;
+    align-items:start
+}
+.panel {
+    padding:28px;
+    border:1px solid var(--line);
+    background:#ffffff30
+}
+.panel:nth-child(2) {
+    background:#eaece2
+}
+.panel-heading {
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    border-bottom:1px solid var(--line);
+    padding-bottom:20px
+}
+h2 {
+    font-size:25px;
+    margin:0 0 16px
+}
+.panel-heading h2 {
+    margin:0
+}
+.badge {
+    font-size:11px;
+    border:1px solid #bdc5b6;
+    border-radius:50%;
+    min-width:27px;
+    height:27px;
+    display:grid;
+    place-items:center
+}
+.form-note {
+    font-size:12px;
+    line-height:1.7;
+    color:var(--muted);
+    max-width:240px
+}
+.table-scroll {
+    overflow-x:auto
+}
+table {
+    width:100%;
+    border-collapse:collapse
+}
+th,td {
+    padding:20px 6px;
+    border-bottom:1px solid var(--line);
+    text-align:left;
+    overflow-wrap:anywhere
+}
+th {
+    font-size:10px;
+    font-weight:400;
+    letter-spacing:1px;
+    color:var(--muted)
+}
+td {
+    font-family:Georgia,serif;
+    font-size:19px
+}
+.price {
+    text-align:right;
+    white-space:nowrap;
+    font-variant-numeric:tabular-nums
+}
+.empty {
+    font:20px/1.7 Georgia,serif;
+    color:var(--muted);
+    padding:35px 10px
+}
+.pagination {
+    margin-top:24px;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    font-size:12px;
+    gap:10px
+}
+label {
+    display:block;
+    font-size:12px;
+    margin:23px 0 10px
+}
+input {
+    width:100%;
+    border:1px solid #bec5b7;
+    background:#f8f7f0;
+    padding:13px;
+    color:var(--ink);
+    border-radius:0
+}
+button {
+    width:100%;
+    margin-top:25px;
+    padding:15px;
+    border:0;
+    background:var(--ink);
+    color:white;
+    cursor:pointer;
+    font-size:13px
+}
+button:hover {
+    background:#35584b
+}
+.notice {
+    padding:16px;
+    border-left:3px solid var(--ink);
+    background:#e2e8dc
+}
+.error {
+    font-size:12px;
+    color:#a32e23;
+    line-height:1.5
+}
+.about {
+    position:relative;
+    padding:44px 0 52px;
+    border-top:1px solid var(--line)
+}
+.about h2 {
+    font-size:29px;
+    line-height:1.4;
+    margin-top:22px
+}
+.about p:not(.eyebrow) {
+    font-size:13px;
+    line-height:1.9;
+    color:var(--muted)
+}
+.about-mark {
+    position:absolute;
+    right:45px;
+    top:65px;
+    font-size:115px;
+    color:#babca4
+}
+footer {
+    border-top:1px solid var(--line);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:27px 0 35px;
+    font-size:10px;
+    color:var(--muted)
+}
+footer>span {
+    font:20px Georgia,serif;
+    color:var(--ink)
+}
+
+@media(min-width:1500px) {
+    .hero {
+    padding-block:90px
+}
+.hero-art {
+    transform:scale(1.06)
+}
+
+}
+
+@media(max-width:900px) {
+    .site-header,.workspace,footer {
+    width:calc(100% - 48px)
+}
+nav {
+    gap:18px
+}
+.hero {
+    gap:0
+}
+.hero-art {
+    transform:scale(.86);
+    transform-origin:center right
+}
+.hero-copy {
+    margin-right:-40px
+}
+h1 {
+    font-size:48px
+}
+.layout {
+    gap:22px
+}
+.editorial-strip b {
+    margin-left:10px
+}
+
+}
+
+@media(max-width:650px) {
+    .site-header,.workspace,footer {
+    width:calc(100% - 36px)
+}
+.site-header {
+    min-height:100px;
+    flex-wrap:wrap;
+    gap:22px;
+    padding:22px 0
+}
+.brand {
+    font-size:24px
+}
+nav {
+    width:100%;
+    justify-content:space-between;
+    font-size:11px;
+    gap:10px
+}
+.nav-action {
+    padding:9px
+}
+.hero {
+    grid-template-columns:1fr;
+    padding:40px 0 23px
+}
+.hero-copy {
+    margin:0
+}
+h1 {
+    font-size:46px;
+    letter-spacing:-2px
+}
+.hero-description {
+    font-size:14px
+}
+.hero-footnote {
+    margin-top:27px
+}
+.hero-art {
+    width:min(100%,430px);
+    margin:22px auto 0;
+    transform:none;
+    height:410px
+}
+.art-label {
+    right:2px
+}
+.book-back {
+    left:47%
+}
+.book-front {
+    left:8%
+}
+.book-flat {
+    left:18%;
+    width:250px
+}
+.editorial-strip {
+    gap:12px;
+    padding:18px 0
+}
+.editorial-strip span {
+    display:grid;
+    gap:8px;
+    font-size:9px
+}
+.editorial-strip b {
+    margin:0;
+    font-size:10px
+}
+.catalog-intro {
+    padding-top:38px
+}
+.catalog-intro h2 {
+    font-size:34px
+}
+.layout {
+    grid-template-columns:1fr;
+    margin-bottom:38px
+}
+.panel {
+    padding:22px
+}
+.about {
+    padding:30px 0
+}
+.about h2 {
+    font-size:25px
+}
+.about-mark {
+    display:none
+}
+footer {
+    flex-wrap:wrap;
+    gap:15px
+}
+footer p {
+    order:3;
+    width:100%;
+    margin:0
+}
+.desktop-break {
+    display:none
+}
+
+}
+
+@media(prefers-reduced-motion:reduce) {
+    html {
+    scroll-behavior:auto
+}
+
+}
+
