@@ -4,30 +4,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Product Cloud — каталог товаров</title>
+    <title>Product Cloud — пространство книг и идей</title>
     <!-- @{...} строит URL с учётом контекстного пути приложения. -->
     <link rel="stylesheet" th:href="@{/styles.css}">
 </head>
 <body>
+<a class="skip-link" href="#catalog">Перейти к каталогу</a>
+<div class="site-header"><a class="brand" th:href="@{/products}"><span class="brand-icon" aria-hidden="true">▥</span> Product Cloud<small>ПРОСТРАНСТВО КНИГ И ИДЕЙ</small></a><nav aria-label="Основная навигация"><a href="#catalog">Каталог</a><a href="#about">О пространстве</a><a class="nav-action" href="#form-heading">Пополнить полку <span aria-hidden="true">↗</span></a></nav></div>
 <main class="workspace">
-    <header>
-        <p class="eyebrow">PRODUCT CLOUD</p>
-        <h1>Каталог товаров</h1>
-        <p class="muted">Названия и цены в одном месте.</p>
+<section class="hero" aria-labelledby="hero-title"><div class="hero-copy"><p class="eyebrow">КНИГИ. ЗНАНИЯ. РАЗМЫШЛЕНИЯ.</p><h1 id="hero-title">Место, где мысли<br>обретают <em>глубину.</em></h1><p class="hero-description">Откройте книгу. Остановите спешку.<br>Оставьте немного времени для самого важного —<br class="desktop-break"> разговора с собой и миром.</p><a class="primary" href="#catalog">Открыть каталог <span aria-hidden="true">↗</span></a><p class="hero-footnote"><span>01 /</span> Ваша следующая глава начинается здесь</p></div>
+<div class="hero-art" role="img" aria-label="Художественная композиция: книги Марка Аврелия, Ницше и Камю на полке"><div class="art-orbit"></div><span class="art-label">ИСКУССТВО<br>МЫСЛИТЬ</span><div class="book book-back"><span>АЛЬБЕР КАМЮ</span><strong>Посторонний</strong><i aria-hidden="true">◒</i><small>ЧЕЛОВЕК И МИР</small></div><div class="book book-front"><span>МАРК АВРЕЛИЙ</span><strong>Наедине<br>с собой</strong><i aria-hidden="true">✳</i><small>РАЗМЫШЛЕНИЯ</small></div><div class="book book-flat"><span>ФРИДРИХ НИЦШЕ</span><strong>По ту сторону добра и зла</strong></div><div class="shelf"></div><p class="art-caption">МАЛЕНЬКАЯ ПОЛКА. БЕСКОНЕЧНЫЙ МИР.</p></div></section>
+<div class="editorial-strip"><span>01 <b>Читать внимательно</b></span><span>02 <b>Мыслить свободно</b></span><span>03 <b>Открывать новое</b></span></div>
+    <header class="catalog-intro" id="catalog">
+        <p class="eyebrow">ЛИЧНАЯ ПОЛКА / КАТАЛОГ</p>
+        <h2>Ваша коллекция</h2>
+        <p class="muted">Книги и открытия, для которых всегда найдётся место.</p>
     </header>
     <!-- th:if показывает блок только при наличии flash-сообщения после добавления. -->
     <p class="notice" role="status" th:if="${success}" th:text="${success}"></p>
     <div class="layout">
         <section class="panel" aria-labelledby="catalog-heading">
             <div class="panel-heading">
-                <h2 id="catalog-heading">Товары</h2>
+                <h2 id="catalog-heading">На вашей полке</h2>
                 <span class="badge" th:text="${products.totalElements}">0</span>
             </div>
             <p class="empty" th:if="${products.empty}">Здесь пока нет товаров. Добавьте первый.</p>
             <!-- th:unless — обратное условие: таблица нужна, когда страница не пуста. -->
             <div class="table-scroll" th:unless="${products.empty}">
                 <table>
-                    <thead><tr><th scope="col">Название</th><th scope="col" class="price">Цена</th></tr></thead>
+                    <thead><tr><th scope="col">Название</th><th scope="col" class="price">Цена, ₽</th></tr></thead>
                     <tbody>
                     <!-- th:each перебирает DTO текущей страницы, th:text экранирует HTML в названии. -->
                     <tr th:each="product : ${products.content}">
@@ -46,21 +51,22 @@
             </nav>
         </section>
         <section class="panel" aria-labelledby="form-heading">
-            <h2 id="form-heading">Новый товар</h2>
+            <h2 id="form-heading">Пополнить полку</h2><p class="form-note">Каждая большая коллекция начинается с одной книги.</p>
             <!-- th:object выбирает ProductForm; *{...} обращается к его полям. -->
             <form th:action="@{/products}" th:object="${productForm}" method="post">
-                <label for="name">Название</label>
+                <label for="name">Название книги или товара</label>
                 <!-- th:field связывает имя поля и значение; required помогает в браузере, но не заменяет серверную проверку. -->
                 <input id="name" th:field="*{name}" maxlength="255" required aria-describedby="name-error">
                 <!-- BindingResult содержит ошибки, которые выводятся через th:errors. -->
                 <p id="name-error" class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
-                <label for="price">Цена</label>
+                <label for="price">Цена, ₽</label>
                 <input id="price" type="number" th:field="*{price}" min="0" step="0.01" required aria-describedby="price-error">
                 <p id="price-error" class="error" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></p>
                 <button type="submit">Добавить товар</button>
             </form>
         </section>
     </div>
-</main>
+<section id="about" class="about"><p class="eyebrow">БОЛЬШЕ, ЧЕМ КАТАЛОГ</p><h2>Хорошая книга не даёт готовых ответов.<br><em>Она учит задавать свои вопросы.</em></h2><p>Product Cloud — ваше пространство для книг, знаний и новых идей.<br>Собирайте свою коллекцию. Возвращайтесь к важному.</p><span class="about-mark" aria-hidden="true">✳</span></section>
+</main><footer><span>Product Cloud</span><p>Книги для жизни. Пространство для мысли.</p><a href="#hero-title">Наверх ↑</a></footer>
 </body>
 </html>
