@@ -1,5 +1,6 @@
 'use strict';
 // Содержимое PDF отправляем отдельным телом: не превращаем бинарный файл в текст или Base64.
+/** Отправляет защищённый POST; сообщает об ошибке и перенаправляет при истечении сессии. */
 async function post(url, body) {
   const response = await fetch(url, {method: 'POST', headers: {'X-Bookshop': 'bookshop'}, body});
   const text = await response.text();
@@ -16,6 +17,7 @@ document.querySelector('#logout').onclick = async () => {
   try { await post('/logout', ''); window.location.assign('/login'); }
   catch (error) { document.querySelector('#library-error').textContent = error.message; }
 };
+/** Подключает отправку формы, блокирует повторный клик и показывает серверную ошибку рядом с полями. */
 function submit(form, action) {
   form.addEventListener('submit', async event => {
     event.preventDefault(); const button = form.querySelector('button');
@@ -47,6 +49,7 @@ document.querySelectorAll('.move-shelf').forEach(select => {
   };
 });
 let shelf = 'all';
+/** Фильтрует загруженные карточки по полке и тексту; файлы PDF для поиска не загружаются. */
 function filter() {
   const query = document.querySelector('#library-search').value.trim().toLocaleLowerCase('ru');
   let count = 0;

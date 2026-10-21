@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="ru" xmlns:th="http://www.thymeleaf.org"><body>
+<!DOCTYPE html>
+<!-- Общая форма продукта: th:field связывает ввод с ProductForm, th:errors показывает результаты Bean Validation. Все th:action у POST-форм участвуют в стандартной CSRF-интеграции Spring/Thymeleaf. --><html lang="ru" xmlns:th="http://www.thymeleaf.org"><body>
 <section th:fragment="form" class="panel manual-product-panel" aria-labelledby="form-heading">
 <p class="eyebrow">ВПИШИТЕ ТО, ЧТО НУЖНО ВАМ</p><h2 id="form-heading">Добавить свой продукт</h2><p class="form-note">Название и цена — и продукт сразу в вашей корзине.</p>
 <form th:action="@{/products}" th:object="${productForm}" method="post" class="manual-product-form">

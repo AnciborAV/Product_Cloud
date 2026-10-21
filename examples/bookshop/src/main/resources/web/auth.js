@@ -1,5 +1,7 @@
 'use strict';
+// Форма входа либо первоначальной настройки; адрес действия задаёт серверный шаблон.
 const form = document.querySelector('#auth-form');
+// Отправка не перезагружает страницу при ошибке и блокирует повторный клик до ответа сервера.
 form.addEventListener('submit', async event => {
   event.preventDefault();
   const button = form.querySelector('button');
