@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="ru" xmlns:th="http://www.thymeleaf.org"><body>
+<!DOCTYPE html>
+<!-- Общие фрагменты: th:replace вставляет шапку, уведомления и подвал; viewer — безопасный AccountView. Все th:action у POST-форм участвуют в стандартной CSRF-интеграции Spring/Thymeleaf. --><html lang="ru" xmlns:th="http://www.thymeleaf.org"><body>
 <th:block th:fragment="header">
 <div class="topline"><span>Хороший день начинается с хороших продуктов</span><span>Product Cloud · ваш продуктовый магазин</span></div>
 <header class="site-header shop-header">

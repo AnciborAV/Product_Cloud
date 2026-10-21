@@ -1,8 +1,10 @@
 'use strict';
 // JavaScript отвечает за интерактивность. Проверка заказа и запись на диск выполняются в Java.
+// Карта доступных книг для интерфейса; сервер при оформлении повторно определяет цены.
 const catalog = new Map([...document.querySelectorAll('.add')].map(button => [button.dataset.id, {
   id: button.dataset.id, title: button.dataset.title, price: Number(button.dataset.price)
 }]));
+// Ключ локальной корзины в браузере; это не серверная история заказов.
 const storageKey = 'quiet-shelf-cart-v1';
 let cart = {};
 try {
@@ -15,6 +17,7 @@ const money = value => new Intl.NumberFormat('ru-RU', {style: 'currency', curren
 const dialog = document.querySelector('#cart-dialog');
 let busy = false;
 let toastTimer;
+/** Показывает короткое уведомление и отменяет прежний таймер скрытия. */
 function notify(message) {
   const toast = document.querySelector('#toast');
   toast.textContent = message;
@@ -22,9 +25,11 @@ function notify(message) {
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => toast.classList.remove('visible'), 2400);
 }
+/** Сохраняет текущую корзину в localStorage; при запрете хранилища работа продолжается в памяти. */
 function persist() {
   try { localStorage.setItem(storageKey, JSON.stringify(cart)); } catch (_) { /* Работаем в памяти. */ }
 }
+/** Перестраивает DOM корзины через textContent, пересчитывает отображаемые суммы и доступность кнопок. */
 function renderCart() {
   const container = document.querySelector('#cart-items');
   container.replaceChildren();
@@ -76,6 +81,7 @@ document.querySelector('#checkout').onclick = async () => {
   finally { busy = false; renderCart(); }
 };
 let category = 'Все';
+/** Совмещает выбранную категорию и поисковую строку, не изменяя серверный каталог. */
 function filterBooks() {
   const query = document.querySelector('#search').value.trim().toLocaleLowerCase('ru');
   let visible = 0;

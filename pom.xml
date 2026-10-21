@@ -70,10 +70,28 @@
     </dependencies>
     <build>
         <plugins>
+            <!-- Ранний понятный отказ, если Maven запущен на JDK ниже требуемой версии. -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>3.5.0</version>
+                <executions>
+                    <execution>
+                        <id>require-java-25</id>
+                        <goals><goal>enforce</goal></goals>
+                        <configuration>
+                            <rules><requireJavaVersion>
+                                <version>[25,)</version>
+                                <message>Для сборки Product Cloud нужен JDK 25 или новее.</message>
+                            </requireJavaVersion></rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <!-- Упаковывает приложение с зависимостями в JAR, запускаемый через java -jar. -->
-            <artifactId>spring-boot-maven-plugin</artifactId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
