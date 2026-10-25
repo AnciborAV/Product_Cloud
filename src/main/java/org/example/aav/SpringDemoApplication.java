@@ -1,4 +1,4 @@
-package org.example.spring_demo;
+package org.example.aav;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,5 +9,4 @@ public class SpringDemoApplication {
     public static void main(String[] args) {
         SpringApplication.run(SpringDemoApplication.class, args);
     }
-
 }

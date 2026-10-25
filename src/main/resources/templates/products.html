@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Свежие продукты на каждый день — учебная витрина продуктового магазина">
+    <title>Зелёная лавка — свежесть рядом</title>
+    <link rel="stylesheet" th:href="@{/css/store.css}">
+</head>
+<body>
+<div class="announcement">Маленькие радости. Настоящие продукты. Каждый день.</div>
+<header class="header wrap">
+    <a class="brand" th:href="@{/}" aria-label="Зелёная лавка — главная"><span class="brand-icon">✳</span><span>зелёная<span class="brand-second">лавка<span class="brand-dot">.</span></span></span></a>
+    <nav aria-label="Основная навигация"><a class="active" href="#catalog">Каталог</a><a href="#about">О лавке</a><a href="#add-product">Добавить товар</a></nav>
+    <span class="header-note"><span class="status-dot"></span> Свежесть каждый день</span>
+</header>
+<main>
+    <section class="hero wrap" id="about">
+        <div class="hero-copy"><p class="eyebrow">ИЗ ЛЮБВИ К ХОРОШЕЙ ЕДЕ</p><h1>Всё свежее.<br>Всё <em>рядом.</em></h1><p class="hero-description">Спелые овощи, тёплый хлеб и любимые продукты.<br>Собрали всё хорошее для вашего стола.</p><a class="button" href="#catalog">Заглянуть в лавку <span>↗</span></a><div class="hero-caption"><span>✳</span> Простые продукты. Большое удовольствие.</div></div>
+        <div class="hero-art" role="img" aria-label="Иллюстрация свежих овощей и фруктов"><div class="orbit"></div><span class="art-leaf">✦</span><span class="produce avocado">🥑</span><span class="produce tomato">🍅</span><span class="produce broccoli">🥦</span><span class="produce lemon">🍋</span><span class="produce carrot">🥕</span><span class="fresh-stamp">100%<small>свежести</small></span><span class="art-label">Хороший день начинается с хорошей еды</span></div>
+    </section>
+    <div class="benefits wrap"><span>☀ <b>Отобрано с заботой</b></span><span>♧ <b>Вкус настоящих продуктов</b></span><span>♡ <b>Для вас и ваших близких</b></span></div>
+    <section class="catalog wrap" id="catalog">
+        <div class="section-heading"><div><p class="eyebrow">НА ПОЛКАХ СЕГОДНЯ</p><h2>Есть что выбрать<span>.</span></h2></div><span class="catalog-count" th:text="'Товаров: ' + ${#lists.size(products)}">Товаров: 8</span></div>
+        <form class="filters" method="get" th:action="@{/products}">
+            <div class="search"><label class="sr-only" for="search">Поиск товара</label><span aria-hidden="true">⌕</span><input id="search" type="search" name="q" th:value="${q}" placeholder="Что ищем сегодня?" maxlength="100"><button type="submit">Найти</button></div>
+            <label class="category-select">Категория<select name="category" aria-label="Категория"><option value="">Все продукты</option><option th:each="category : ${categories}" th:value="${category}" th:text="${category.title}" th:selected="${category == selectedCategory}"></option></select></label>
+        </form>
+        <nav class="category-chips" aria-label="Категории товаров"><a th:href="@{/products(q=${q})}" th:classappend="${selectedCategory == null} ? 'selected'">Все продукты</a><a th:each="category : ${categories}" th:href="@{/products(category=${category},q=${q})}" th:classappend="${category == selectedCategory} ? 'selected'"><span th:text="${category.icon}"></span> <span th:text="${category.title}"></span></a></nav>
+        <p class="notice" th:if="${message}" th:text="${message}" role="status"></p>
+        <div class="product-grid">
+            <article class="product-card" th:each="product : ${products}">
+                <div class="product-image" th:classappend="${product.category.name().toLowerCase()}"><span class="product-label">В нашей лавке</span><span class="product-emoji" aria-hidden="true" th:text="${product.category.icon}"></span><span class="image-decoration" aria-hidden="true">✳</span></div>
+                <div class="product-info"><p class="product-category" th:text="${product.category.title}"></p><h3 th:text="${product.name}"></h3><p class="unit" th:text="${product.unit}"></p><div class="product-bottom"><strong><span th:text="${#numbers.formatDecimal(product.price, 1, 'WHITESPACE', 2, 'COMMA')}"></span> <span class="rouble">₽</span></strong><span class="available"><span class="status-dot"></span> В наличии</span></div></div>
+            </article>
+        </div>
+        <div class="empty-state" th:if="${#lists.isEmpty(products)}"><span>🌱</span><h3>Пока ничего не нашлось</h3><p>Попробуйте другое название или выберите все категории.</p><a th:href="@{/products}">Показать все продукты →</a></div>
+    </section>
+    <section class="add-section wrap" id="add-product"><div class="add-copy"><p class="eyebrow">ПОПОЛНИМ ПОЛКИ</p><h2>Ещё немного<br><em>хорошего.</em></h2><p>Добавьте продукт в нашу лавку.<br>Он сразу появится на витрине.</p><span class="form-illustration" aria-hidden="true">🌿</span><p class="demo-note">Учебная витрина · Товары хранятся в памяти до перезапуска приложения. Оформление заказов не предусмотрено.</p></div>
+        <form class="product-form" th:action="@{/products}" th:object="${productForm}" method="post">
+            <div class="form-errors" role="alert" th:if="${#fields.hasErrors('*')}"><p>Проверьте данные товара:</p><ul><li th:each="error : ${#fields.errors('*')}" th:text="${error}"></li></ul></div>
+            <label for="name">Название товара</label><input id="name" th:field="*{name}" placeholder="Например, клубника садовая" required maxlength="100" th:attr="aria-invalid=${#fields.hasErrors('name')}">
+            <div class="form-row"><div><label for="price">Цена, ₽</label><input id="price" th:field="*{price}" type="number" min="0.01" max="999999.99" step="0.01" placeholder="199.00" required th:attr="aria-invalid=${#fields.hasErrors('price')}"></div><div><label for="unit">Единица продажи</label><input id="unit" th:field="*{unit}" placeholder="500 г" maxlength="30" required></div></div>
+            <label for="category">Категория</label><select id="category" th:field="*{category}" required><option value="">Выберите категорию</option><option th:each="category : ${categories}" th:value="${category}" th:text="${category.title}"></option></select>
+            <button class="button" type="submit">Добавить на витрину <span>＋</span></button>
+        </form>
+    </section>
+</main>
+<footer class="wrap"><a class="footer-brand" th:href="@{/}">✳ зелёная лавка.</a><span>С заботой о том, что на вашем столе.</span><span>Учебный проект · Java 25</span></footer>
+</body>
+</html>
