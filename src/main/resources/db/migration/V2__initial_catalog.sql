@@ -1,0 +1,8 @@
+INSERT INTO products(id,created_at,updated_at,version,name,price,category,unit) VALUES ('59afb636-76b7-422a-a68b-1e47727ab52f',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,0,'Авокадо Хасс',189.00,'VEGETABLES','1 шт.');
+INSERT INTO products(id,created_at,updated_at,version,name,price,category,unit) VALUES ('bfd18687-21b4-4cd3-9746-43d379755dc6',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,0,'Томаты на ветке',249.90,'VEGETABLES','500 г');
+INSERT INTO products(id,created_at,updated_at,version,name,price,category,unit) VALUES ('8a94d31f-0f47-4b82-916d-ee6571b91f1d',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,0,'Молоко фермерское 3,2%',119.00,'DAIRY','1 л');
+INSERT INTO products(id,created_at,updated_at,version,name,price,category,unit) VALUES ('d225e821-4d04-4a64-93aa-e0bedde5677d',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,0,'Круассан сливочный',95.00,'BAKERY','1 шт.');
+INSERT INTO products(id,created_at,updated_at,version,name,price,category,unit) VALUES ('3b61564e-ab36-4d60-884e-4221752ba08a',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,0,'Яблоки Гала',169.00,'VEGETABLES','1 кг');
+INSERT INTO products(id,created_at,updated_at,version,name,price,category,unit) VALUES ('22cca1a6-b79c-48ab-bd11-e6f3b60b46e7',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,0,'Йогурт натуральный',89.00,'DAIRY','180 г');
+INSERT INTO products(id,created_at,updated_at,version,name,price,category,unit) VALUES ('688dff5e-3006-4b7e-9383-55f6b58b5243',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,0,'Хлеб на закваске',159.00,'BAKERY','400 г');
+INSERT INTO products(id,created_at,updated_at,version,name,price,category,unit) VALUES ('a9788725-b353-4885-80cb-3233950154a9',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,0,'Мёд цветочный',429.00,'PANTRY','250 г');

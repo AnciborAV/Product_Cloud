@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Страница не найдена — Зелёная лавка</title>
+    <link rel="stylesheet" th:href="@{/css/store.css(v=2)}" />
+  </head>
+  <body>
+    <header th:replace="~{fragments :: header}"></header>
+    <main class="wrap account-main">
+      <p class="eyebrow">404</p>
+      <h1>Страница не найдена</h1>
+      <p>
+        Возможно, адрес изменился. Вернитесь в каталог и выберите что-нибудь
+        хорошее.
+      </p>
+      <a class="button" th:href="@{/products}">В каталог →</a>
+    </main>
+    <footer th:replace="~{fragments :: footer}"></footer>
+  </body>
+</html>

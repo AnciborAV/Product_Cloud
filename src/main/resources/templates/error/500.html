@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Не удалось выполнить запрос — Зелёная лавка</title>
+    <link rel="stylesheet" th:href="@{/css/store.css(v=2)}" />
+  </head>
+  <body>
+    <header th:replace="~{fragments :: header}"></header>
+    <main class="wrap account-main">
+      <p class="eyebrow">500</p>
+      <h1>Не удалось выполнить запрос</h1>
+      <p>Попробуйте ещё раз чуть позже.</p>
+      <a class="button" th:href="@{/products}">В каталог →</a>
+    </main>
+    <footer th:replace="~{fragments :: footer}"></footer>
+  </body>
+</html>

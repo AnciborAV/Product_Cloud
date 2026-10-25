@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Зелёная лавка — личное пространство</title>
+    <link rel="stylesheet" th:href="@{/css/store.css(v=2)}" />
+  </head>
+  <body>
+    <div class="announcement">Хорошие продукты. Ваш выбор. Ваша лавка.</div>
+    <header th:replace="~{fragments :: header}"></header>
+    <main class="wrap auth-layout">
+      <div>
+        <p class="eyebrow">РАДЫ ВАС ВИДЕТЬ</p>
+        <h1>Ваша лавка.<br />Ваш <em>выбор.</em></h1>
+        <p>Сохраняйте любимые продукты и делитесь впечатлениями.</p>
+      </div>
+      <section class="panel">
+        <h2>Вход в кабинет</h2>
+        <p class="notice" th:if="${message}" th:text="${message}"></p>
+        <p class="form-errors" th:if="${param.error}">
+          Неверный логин или пароль.
+        </p>
+        <p class="notice" th:if="${param.logout}">
+          Вы вышли из личного кабинета.
+        </p>
+        <p class="notice" role="status" th:if="${param.passwordChanged}">Пароль изменён. Войдите с новым паролем.</p>
+        <form class="stack" th:action="@{/login}" method="post">
+          <label for="username">Логин</label
+          ><input
+            id="username"
+            name="username"
+            autocomplete="username"
+            required
+            maxlength="50"
+          /><label for="password">Пароль</label
+          ><input
+            id="password"
+            name="password"
+            type="password"
+            autocomplete="current-password"
+            required
+          /><button class="button" type="submit">Войти →</button>
+        </form>
+        <p>Впервые у нас? <a th:href="@{/register}">Создать аккаунт</a></p>
+      </section>
+    </main>
+    <footer th:replace="~{fragments :: footer}"></footer>
+  </body>
+</html>

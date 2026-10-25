@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Доступ ограничен — Зелёная лавка</title>
+    <link rel="stylesheet" th:href="@{/css/store.css(v=2)}" />
+  </head>
+  <body>
+    <header th:replace="~{fragments :: header}"></header>
+    <main class="wrap account-main">
+      <p class="eyebrow">403</p>
+      <h1>Доступ ограничен</h1>
+      <p>
+        Для этого действия нужны другие права. Если форма была открыта давно,
+        обновите страницу и повторите действие.
+      </p>
+      <a class="button" th:href="@{/products}">В каталог →</a>
+    </main>
+    <footer th:replace="~{fragments :: footer}"></footer>
+  </body>
+</html>

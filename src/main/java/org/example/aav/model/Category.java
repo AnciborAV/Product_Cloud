@@ -1,8 +1,10 @@
 package org.example.aav.model;
 
 public enum Category {
-    VEGETABLES("Овощи и фрукты", "🥑"), DAIRY("Молочные продукты", "🥛"),
-    BAKERY("Хлеб и выпечка", "🥐"), PANTRY("Бакалея", "🍯");
+    VEGETABLES("Овощи", "🥕"), FRUITS("Фрукты", "🍎"), DAIRY("Молочные продукты", "🥛"),
+    BAKERY("Хлеб и выпечка", "🥐"), PANTRY("Бакалея", "🍯"),
+    JUICES("Соки", "🧃"), WATER("Вода", "💧"), MEAT("Мясо и птица", "🍗"),
+    FISH("Рыба и морепродукты", "🐟"), SWEETS("Сладости и орехи", "🍫");
 
     private final String title;
     private final String icon;

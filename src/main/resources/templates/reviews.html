@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Зелёная лавка — личное пространство</title>
+    <link rel="stylesheet" th:href="@{/css/store.css(v=2)}" />
+  </head>
+  <body>
+    <div class="announcement">Хорошие продукты. Ваш выбор. Ваша лавка.</div>
+    <header th:replace="~{fragments :: header}"></header>
+    <main class="wrap account-main">
+      <p class="eyebrow">ОТКРЫТО О ВКУСНОМ</p>
+      <div class="section-heading">
+        <h1>Ваши <em>впечатления.</em></h1>
+        <a class="button" th:href="@{/account}">Оставить отзыв ↗</a>
+      </div>
+      <nav class="category-chips" aria-label="Разделы магазина">
+        <a th:href="@{/products}">Каталог</a
+        ><a class="selected" th:href="@{/reviews}">Отзывы покупателей</a>
+      </nav>
+      <p class="empty-state" th:if="${reviewPage.empty}">
+        Станьте первым, кто поделится впечатлением о наших продуктах.
+      </p>
+      <div class="reviews-grid">
+        <article
+          class="panel review-card"
+          th:each="review : ${reviewPage.content}"
+        >
+          <div class="review-heading">
+            <strong th:text="${review.user.displayName}"></strong
+            ><span class="rating" th:text="${review.rating} + ' / 5 ★'"></span>
+          </div>
+          <p class="product-category" th:text="${review.product.name}"></p>
+          <p class="review-text" th:text="${review.text}"></p>
+          <small
+            class="muted"
+            th:text="${#temporals.format(review.createdAt, 'dd.MM.yyyy', 'Europe/Moscow')}"
+          ></small>
+        </article>
+      </div>
+      <nav class="pagination" aria-label="Страницы отзывов">
+        <a
+          th:if="${reviewPage.hasPrevious()}"
+          th:href="@{/reviews(page=${reviewPage.number - 1})}"
+          >← Назад</a
+        ><a
+          th:if="${reviewPage.hasNext()}"
+          th:href="@{/reviews(page=${reviewPage.number + 1})}"
+          >Далее →</a
+        >
+      </nav>
+    </main>
+    <footer th:replace="~{fragments :: footer}"></footer>
+  </body>
+</html>

@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+  <body>
+    <header th:fragment="header" class="header wrap">
+      <a class="brand" th:href="@{/}"
+        ><span class="brand-icon">✳</span
+        ><span>зелёная<span class="brand-second">лавка.</span></span></a
+      >
+      <nav aria-label="Основная навигация">
+        <a th:href="@{/products}">Каталог</a><a th:href="@{/reviews}">Отзывы</a
+        ><a th:href="@{/account}">Личный кабинет</a>
+      </nav>
+    </header>
+    <footer th:fragment="footer" class="wrap">
+      <a class="footer-brand" th:href="@{/}">✳ зелёная лавка.</a
+      ><span>С заботой о том, что на вашем столе.</span
+      ><a th:href="@{/reviews}">Отзывы покупателей</a>
+    </footer>
+  </body>
+</html>

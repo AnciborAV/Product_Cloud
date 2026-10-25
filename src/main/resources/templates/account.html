@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Зелёная лавка — личное пространство</title>
+    <link rel="stylesheet" th:href="@{/css/store.css(v=2)}" />
+  </head>
+  <body>
+    <div class="announcement">Хорошие продукты. Ваш выбор. Ваша лавка.</div>
+    <header th:replace="~{fragments :: header}"></header>
+    <main class="wrap account-main">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">ЛИЧНОЕ ПРОСТРАНСТВО</p>
+          <h1>Здравствуйте, <em th:text="${account.displayName}"></em></h1>
+        </div>
+        <form th:action="@{/logout}" method="post">
+          <button class="quiet-button">Выйти</button>
+        </form>
+      </div>
+      <p
+        class="notice"
+        role="status"
+        th:if="${message}"
+        th:text="${message}"
+      ></p>
+      <p
+        class="form-errors"
+        role="alert"
+        th:if="${error}"
+        th:text="${error}"
+      ></p>
+      <div class="account-layout">
+        <aside class="panel profile">
+          <img
+            class="avatar"
+            th:if="${account.hasAvatar}"
+            th:src="@{/account/avatar}"
+            alt="Ваша фотография"
+          />
+          <div
+            class="avatar avatar-placeholder"
+            th:unless="${account.hasAvatar}"
+            th:text="${#strings.substring(account.displayName,0,1)}"
+          ></div>
+          <h2 th:text="${account.displayName}"></h2>
+          <p class="muted" th:text="'@' + ${account.username}"></p>
+          <form class="stack" th:action="@{/account/contacts}" method="post">
+            <label for="contactName">Имя</label><input id="contactName" name="displayName" th:value="${account.displayName}" autocomplete="given-name" required maxlength="100" />
+            <label for="contactLastName">Фамилия</label><input id="contactLastName" name="lastName" th:value="${account.lastName}" autocomplete="family-name" required maxlength="100" />
+            <label for="contactPhone">Телефон</label><input id="contactPhone" name="phone" th:value="${account.phone}" type="tel" autocomplete="tel" required maxlength="30" />
+            <label for="contactEmail">Email</label><input id="contactEmail" name="email" th:value="${account.email}" type="email" autocomplete="email" required maxlength="254" />
+            <small>Отправляем актуальный список после добавления или удаления продуктов.</small>
+            <button class="button">Сохранить контакты</button>
+          </form>
+          <form
+            class="stack"
+            th:action="@{/account/avatar}"
+            method="post"
+            enctype="multipart/form-data"
+          >
+            <label for="avatar">Фото профиля</label
+            ><input
+              id="avatar"
+              name="file"
+              type="file"
+              accept="image/jpeg,image/png"
+              required
+            /><small
+              >JPEG или PNG до 2 МБ. Фото будет обрезано до квадрата.</small
+            ><button class="button">Сохранить фото</button>
+          </form>
+          <form
+            th:if="${account.hasAvatar}"
+            th:action="@{/account/avatar/remove}"
+            method="post"
+          >
+            <button class="quiet-button">Удалить фото</button>
+          </form>
+        </aside>
+        <div class="account-content">
+          <section class="panel" id="password">
+            <p class="eyebrow">БЕЗОПАСНОСТЬ</p>
+            <h2>Сменить пароль</h2>
+            <p class="muted">Подтвердите смену кодом из письма на ваш email. Старый пароль действует до подтверждения.</p>
+            <p th:if="${account.email != null}" th:text="'Код придёт на: ' + ${account.email}"></p>
+            <form class="stack" th:action="@{/account/password/request}" method="post">
+              <label for="currentPassword">Текущий пароль</label>
+              <input id="currentPassword" name="currentPassword" type="password" autocomplete="current-password" required maxlength="200" />
+              <label for="newPassword">Новый пароль</label>
+              <input id="newPassword" name="newPassword" type="password" autocomplete="new-password" minlength="10" maxlength="72" required />
+              <label for="repeatPassword">Повторите новый пароль</label>
+              <input id="repeatPassword" name="repeatPassword" type="password" autocomplete="new-password" minlength="10" maxlength="72" required />
+              <small>Не менее 10 символов. После смены пароля потребуется войти заново на всех устройствах.</small>
+              <button class="button" type="submit" th:disabled="${!mailEnabled}">Получить код на почту</button>
+            </form>
+            <form class="stack" th:action="@{/account/password/confirm}" method="post">
+              <label for="passwordCode">Код из письма</label>
+              <input id="passwordCode" name="code" type="text" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{8}" minlength="8" maxlength="8" required placeholder="8 цифр" />
+              <small>Код действует 15 минут. Повторный запрос — через минуту.</small>
+              <button class="button" type="submit">Подтвердить смену пароля</button>
+            </form>
+          </section>
+          <section class="panel">
+            <p class="eyebrow">ВАША ПОДБОРКА</p>
+            <h2>
+              Выбранные товары
+              <span
+                class="muted"
+                th:text="${#lists.size(selectedProducts)}"
+              ></span>
+            </h2>
+            <p class="muted" th:if="${#lists.isEmpty(selectedProducts)}">
+              Здесь появятся продукты, которые вы сохраните в каталоге.
+            </p>
+            <article class="saved-row" th:each="product : ${selectedProducts}">
+              <img class="saved-photo" th:if="${product.imageUrl != null}" th:src="${product.imageUrl}" th:alt="${product.name}" width="64" height="64" />
+              <span th:if="${product.imageUrl == null}"
+                class="saved-icon"
+                th:text="${product.illustrationIcon}"
+              ></span>
+              <div>
+                <h3 th:text="${product.name}"></h3>
+                <small th:text="${product.unit}"></small>
+              </div>
+              <strong th:text="${product.price} + ' ₽'"></strong>
+              <form
+                th:action="@{/account/products/{id}/remove(id=${product.id})}"
+                method="post"
+              >
+                <button
+                  class="quiet-button"
+                  th:attr="aria-label='Удалить ' + ${product.name}"
+                >
+                  Удалить
+                </button>
+              </form>
+            </article>
+            <div class="order-mail">
+              <p th:if="${account.email != null}" th:text="'Получатель: ' + ${account.email}"></p>
+              <p th:unless="${mailEnabled}" role="status">Отправка почты пока отключена. Требуется настройка SMTP администратором.</p>
+              <p class="muted">В письмо войдут выбранные товары, цены и итоговая сумма — по одной упаковке каждого товара.</p>
+              <form th:action="@{/account/order/email}" method="post">
+                <button class="button" type="submit" th:disabled="${#lists.isEmpty(selectedProducts)}">Отправить заказ на электронную почту</button>
+              </form>
+            </div>
+            <a class="text-link" th:href="@{/products}">Выбрать продукты →</a>
+          </section>
+          <section class="panel">
+            <p class="eyebrow">ВАШЕ МНЕНИЕ ВАЖНО</p>
+            <h2 id="review-editor">Поделитесь впечатлением</h2>
+            <p class="muted">
+              Отзыв будет опубликован в магазине с вашим именем. Повторный отзыв
+              обновит предыдущий.
+            </p>
+            <form
+              class="stack"
+              th:action="@{/account/reviews}"
+              th:object="${reviewForm}"
+              method="post"
+            >
+              <div class="form-errors" th:if="${#fields.hasErrors('*')}">
+                <p th:each="e : ${#fields.errors('*')}" th:text="${e}"></p>
+              </div>
+              <label for="productId">Товар</label
+              ><select id="productId" th:field="*{productId}" required>
+                <option value="">Выберите продукт</option>
+                <option
+                  th:each="p : ${allProducts}"
+                  th:value="${p.id}"
+                  th:text="${p.name}"
+                ></option></select
+              ><label for="rating">Ваша оценка</label
+              ><select id="rating" th:field="*{rating}">
+                <option value="5">5 — Отлично</option>
+                <option value="4">4 — Хорошо</option>
+                <option value="3">3 — Нормально</option>
+                <option value="2">2 — Плохо</option>
+                <option value="1">1 — Очень плохо</option></select
+              ><label for="text">Отзыв</label
+              ><textarea
+                id="text"
+                th:field="*{text}"
+                required
+                maxlength="2000"
+                rows="4"
+                placeholder="Что вам понравилось?"
+              ></textarea
+              ><button class="button">Опубликовать отзыв →</button>
+            </form>
+          </section>
+          <section class="panel">
+            <h2>Мои отзывы</h2>
+            <p class="muted" th:if="${#lists.isEmpty(myReviews)}">
+              Вы пока не оставили отзывов.
+            </p>
+            <article class="review-card" th:each="review : ${myReviews}">
+              <div class="review-heading">
+                <strong th:text="${review.product.name}"></strong
+                ><span
+                  class="rating"
+                  th:text="${review.rating} + ' / 5 ★'"
+                ></span>
+              </div>
+              <p class="review-text" th:text="${review.text}"></p>
+              <a
+                class="text-link"
+                th:href="@{/account/reviews/{id}/edit(id=${review.id})} + '#review-editor'"
+                >Изменить отзыв →</a
+              >
+              <form
+                th:action="@{/account/reviews/{id}/remove(id=${review.id})}"
+                method="post"
+              >
+                <button class="quiet-button">Удалить отзыв</button>
+              </form>
+            </article>
+          </section>
+        </div>
+      </div>
+    </main>
+    <footer th:replace="~{fragments :: footer}"></footer>
+  </body>
+</html>

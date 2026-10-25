@@ -1007,3 +1007,9 @@ a:focus-visible {
     gap: 16px;
   }
 }
+
+.product-photo { width: 100%; height: 220px; object-fit: contain; background: #fff; padding: 18px; }
+.product-image:has(.product-photo) { background: #fff; }
+.product-image:has(.product-photo) .image-decoration { display: none; }
+.order-mail { margin: 24px 0; padding: 20px; background: #f3f6ee; border-radius: 16px; }
+.saved-photo { width: 64px; height: 64px; object-fit: contain; border-radius: 8px; }

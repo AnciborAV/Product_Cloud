@@ -63,7 +63,7 @@
           </div>
           <span
             class="catalog-count"
-            th:text="'Товаров: ' + ${#lists.size(products)}"
+            th:text="'Товаров: ' + ${productPage.totalElements}"
             >Товаров: 8</span
           >
         </div>
@@ -117,10 +117,10 @@
               th:classappend="${product.category.name().toLowerCase()}"
             >
               <span class="product-label">В нашей лавке</span
-              ><span
-                class="product-emoji"
+              ><img class="product-photo" th:if="${product.imageUrl != null}" th:src="${product.imageUrl}" th:alt="${product.name}" loading="lazy" width="320" height="240" /><span
+                th:if="${product.imageUrl == null}" class="product-emoji"
                 aria-hidden="true"
-                th:text="${product.category.icon}"
+                th:text="${product.illustrationIcon}"
               ></span
               ><span class="image-decoration" aria-hidden="true">✳</span>
             </div>
@@ -255,7 +255,7 @@
     <footer class="wrap">
       <a class="footer-brand" th:href="@{/}">✳ зелёная лавка.</a
       ><span>С заботой о том, что на вашем столе.</span
-      ><span>Свежие продукты каждый день</span>
+      ><a href="/images/products/credits.html">Источники фотографий</a>
     </footer>
   </body>
 </html>

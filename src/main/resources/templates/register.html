@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Зелёная лавка — личное пространство</title>
+    <link rel="stylesheet" th:href="@{/css/store.css(v=2)}" />
+  </head>
+  <body>
+    <div class="announcement">Хорошие продукты. Ваш выбор. Ваша лавка.</div>
+    <header th:replace="~{fragments :: header}"></header>
+    <main class="wrap auth-layout">
+      <div>
+        <p class="eyebrow">СТАНЕМ БЛИЖЕ</p>
+        <h1>Место для<br /><em>любимого.</em></h1>
+        <p>Ваши продукты и отзывы — всегда под рукой.</p>
+      </div>
+      <section class="panel">
+        <h2>Создать аккаунт</h2>
+        <form
+          class="stack"
+          th:action="@{/register}"
+          th:object="${registrationForm}"
+          method="post"
+        >
+          <div class="form-errors" th:if="${#fields.hasErrors('*')}">
+            <p th:each="e : ${#fields.errors('*')}" th:text="${e}"></p>
+          </div>
+          <label for="displayName">Ваше имя</label
+          ><input
+            id="displayName"
+            th:field="*{displayName}"
+            autocomplete="given-name"
+            required
+            maxlength="100"
+          />
+          <label for="lastName">Фамилия</label><input id="lastName" th:field="*{lastName}" autocomplete="family-name" required maxlength="100" />
+          <label for="phone">Телефон</label><input id="phone" th:field="*{phone}" type="tel" autocomplete="tel" required maxlength="30" />
+          <label for="email">Email</label><input id="email" th:field="*{email}" type="email" autocomplete="email" required maxlength="254" />
+          <small>На этот адрес будем отправлять список товаров после добавления или удаления.</small>
+          <label for="username">Логин</label
+          ><input
+            id="username"
+            th:field="*{username}"
+            autocomplete="username"
+            pattern="[a-zA-Z0-9_]{3,50}"
+            required
+            maxlength="50"
+          /><small>От 3 символов: латинские буквы, цифры, _</small
+          ><label for="password">Пароль</label
+          ><input
+            id="password"
+            name="password"
+            type="password"
+            autocomplete="new-password"
+            required
+            minlength="12"
+            maxlength="64"
+          /><small>От 12 до 64 символов.</small
+          ><button class="button" type="submit">Создать аккаунт →</button>
+        </form>
+        <p>Уже зарегистрированы? <a th:href="@{/login}">Войти</a></p>
+      </section>
+    </main>
+    <footer th:replace="~{fragments :: footer}"></footer>
+  </body>
+</html>
