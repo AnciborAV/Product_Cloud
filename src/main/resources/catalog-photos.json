@@ -1,0 +1,252 @@
+[
+  {
+    "name": "Авокадо Хасс",
+    "page": "Avocado",
+    "file": "avocado.jpg"
+  },
+  {
+    "name": "Яблоки Гала",
+    "page": "Gala_(apple)",
+    "file": "gala_apple.jpg"
+  },
+  {
+    "name": "Бананы",
+    "page": "Banana",
+    "file": "banana.jpg"
+  },
+  {
+    "name": "Апельсины",
+    "page": "Orange_(fruit)",
+    "file": "orange_fruit.jpg"
+  },
+  {
+    "name": "Груши Конференция",
+    "page": "Conference_pear",
+    "file": "conference_pear.jpg"
+  },
+  {
+    "name": "Томаты на ветке",
+    "page": "Tomato",
+    "file": "tomato.jpg"
+  },
+  {
+    "name": "Огурцы",
+    "page": "Cucumber",
+    "file": "cucumber.jpg"
+  },
+  {
+    "name": "Морковь",
+    "page": "Carrot",
+    "file": "carrot.jpg"
+  },
+  {
+    "name": "Картофель",
+    "page": "Potato",
+    "file": "potato.jpg"
+  },
+  {
+    "name": "Брокколи",
+    "page": "Broccoli",
+    "file": "broccoli.jpg"
+  },
+  {
+    "name": "Молоко фермерское 3,2%",
+    "page": "Milk",
+    "file": "milk.jpg"
+  },
+  {
+    "name": "Йогурт натуральный",
+    "page": "Yogurt",
+    "file": "yogurt.jpg"
+  },
+  {
+    "name": "Кефир",
+    "page": "Kefir",
+    "file": "kefir.jpg"
+  },
+  {
+    "name": "Творог",
+    "page": "Quark_(dairy_product)",
+    "file": "quark_dairy_product.jpg"
+  },
+  {
+    "name": "Сыр Гауда",
+    "page": "Gouda_cheese",
+    "file": "gouda_cheese.jpg"
+  },
+  {
+    "name": "Круассан сливочный",
+    "page": "Croissant",
+    "file": "croissant.jpg"
+  },
+  {
+    "name": "Хлеб на закваске",
+    "page": "Sourdough",
+    "file": "sourdough.jpg"
+  },
+  {
+    "name": "Багет французский",
+    "page": "Baguette",
+    "file": "baguette.jpg"
+  },
+  {
+    "name": "Бублик с кунжутом",
+    "page": "Bagel",
+    "file": "bagel.jpg"
+  },
+  {
+    "name": "Маффин шоколадный",
+    "page": "Chocolate_muffin",
+    "file": "chocolate_muffin.jpg"
+  },
+  {
+    "name": "Сок апельсиновый",
+    "page": "Orange_juice",
+    "file": "orange_juice.jpg"
+  },
+  {
+    "name": "Сок яблочный",
+    "page": "Apple_juice",
+    "file": "apple_juice.jpg"
+  },
+  {
+    "name": "Сок томатный",
+    "page": "Tomato_juice",
+    "file": "tomato_juice.jpg"
+  },
+  {
+    "name": "Сок гранатовый",
+    "page": "Pomegranate_juice",
+    "file": "pomegranate_juice.jpg"
+  },
+  {
+    "name": "Сок морковный",
+    "page": "Carrot_juice",
+    "file": "carrot_juice.jpg"
+  },
+  {
+    "name": "Вода питьевая",
+    "page": "Bottled_water",
+    "file": "bottled_water.jpg"
+  },
+  {
+    "name": "Вода газированная",
+    "page": "Carbonated_water",
+    "file": "carbonated_water.jpg"
+  },
+  {
+    "name": "Вода минеральная",
+    "page": "Mineral_water",
+    "file": "mineral_water.jpg"
+  },
+  {
+    "name": "Вода Боржоми",
+    "page": "Borjomi_(water)",
+    "file": "borjomi_water.jpg"
+  },
+  {
+    "name": "Вода Эвиан",
+    "page": "Evian",
+    "file": "evian.jpg"
+  },
+  {
+    "name": "Мёд цветочный",
+    "page": "Honey",
+    "file": "honey.jpg"
+  },
+  {
+    "name": "Рис белый",
+    "page": "White_rice",
+    "file": "white_rice.jpg"
+  },
+  {
+    "name": "Гречневая крупа",
+    "page": "Buckwheat",
+    "file": "buckwheat.jpg"
+  },
+  {
+    "name": "Спагетти",
+    "page": "Spaghetti",
+    "file": "spaghetti.jpg"
+  },
+  {
+    "name": "Масло оливковое",
+    "page": "Olive_oil",
+    "file": "olive_oil.jpg"
+  },
+  {
+    "name": "Курица запечённая",
+    "page": "Chicken_as_food",
+    "file": "chicken_as_food.jpg"
+  },
+  {
+    "name": "Говядина",
+    "page": "Beef",
+    "file": "beef.jpg"
+  },
+  {
+    "name": "Свинина",
+    "page": "Pork",
+    "file": "pork.jpg"
+  },
+  {
+    "name": "Индейка запечённая",
+    "page": "Turkey_as_food",
+    "file": "turkey_as_food.jpg"
+  },
+  {
+    "name": "Бекон",
+    "page": "Bacon",
+    "file": "bacon.jpg"
+  },
+  {
+    "name": "Лосось, филе",
+    "page": "Salmon_as_food",
+    "file": "salmon_as_food.jpg"
+  },
+  {
+    "name": "Форель запечённая",
+    "page": "Trout",
+    "file": "trout.jpg"
+  },
+  {
+    "name": "Треска сушёная",
+    "page": "Cod_as_food",
+    "file": "cod_as_food.jpg"
+  },
+  {
+    "name": "Креветки",
+    "page": "Shrimp_and_prawn_as_food",
+    "file": "shrimp_and_prawn_as_food.jpg"
+  },
+  {
+    "name": "Мидии",
+    "page": "Mussel",
+    "file": "mussel.jpg"
+  },
+  {
+    "name": "Шоколад тёмный",
+    "page": "Dark_chocolate",
+    "file": "dark_chocolate.jpg"
+  },
+  {
+    "name": "Печенье овсяное",
+    "page": "Oatmeal_raisin_cookie",
+    "file": "oatmeal_raisin_cookie.jpg"
+  },
+  {
+    "name": "Мармелад",
+    "page": "Gummi_candy",
+    "file": "gummi_candy.jpg"
+  },
+  {
+    "name": "Мороженое ванильное",
+    "page": "Vanilla_ice_cream",
+    "file": "vanilla_ice_cream.jpg"
+  },
+  {
+    "name": "Миндаль",
+    "page": "Almond",
+    "file": "almond.jpg"
+  }
+]

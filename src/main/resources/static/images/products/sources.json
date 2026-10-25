@@ -1,0 +1,452 @@
+[
+  {
+    "name": "Авокадо Хасс",
+    "file": "avocado.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Avocado_Hass_-_single_and_halved.jpg",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/c/c9/Avocado_Hass_-_single_and_halved.jpg?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "<a href=\"//commons.wikimedia.org/wiki/User:Iifar\" title=\"User:Iifar\">Ivar Leidus</a>",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  {
+    "name": "Яблоки Гала",
+    "file": "gala_apple.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Gala_apples_on_cloth.jpg",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Gala_apples_on_cloth.jpg?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "<a href=\"//commons.wikimedia.org/w/index.php?title=User:Nerd271&amp;action=edit&amp;redlink=1\" class=\"new\" title=\"User:Nerd271 (page does not exist)\">Nerd271</a>",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  {
+    "name": "Бананы",
+    "file": "banana.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Banana-Single.jpg",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/8/8a/Banana-Single.jpg?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "<a href=\"//commons.wikimedia.org/wiki/User:Evan-Amos\" title=\"User:Evan-Amos\">Evan-Amos</a>",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  {
+    "name": "Апельсины",
+    "file": "orange_fruit.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Oranges_-_whole-halved-segment.jpg",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/e/e3/Oranges_-_whole-halved-segment.jpg?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "<a href=\"//commons.wikimedia.org/wiki/User:Iifar\" title=\"User:Iifar\">Ivar Leidus</a>",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  {
+    "name": "Груши Конференция",
+    "file": "conference_pear.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Pyrus_communis_%27Conference%27.jpg",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/5/52/Pyrus_communis_%27Conference%27.jpg?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "<a href=\"//commons.wikimedia.org/wiki/User:Rasbak\" title=\"User:Rasbak\">Rasbak</a>",
+    "license": "CC BY-SA 3.0",
+    "license_url": "http://creativecommons.org/licenses/by-sa/3.0/"
+  },
+  {
+    "name": "Томаты на ветке",
+    "file": "tomato.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Tomato_je.jpg",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/8/89/Tomato_je.jpg?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "<a href=\"//commons.wikimedia.org/w/index.php?title=User:Softeis&amp;action=edit&amp;redlink=1\" class=\"new\" title=\"User:Softeis (page does not exist)\">Softeis</a>",
+    "license": "CC BY-SA 3.0",
+    "license_url": "http://creativecommons.org/licenses/by-sa/3.0/"
+  },
+  {
+    "name": "Огурцы",
+    "file": "cucumber.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Cucumber_BNC.jpg",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/a/a3/Cucumber_BNC.jpg?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "<b><a href=\"https://en.wikipedia.org/wiki/User:Blacknclick\" class=\"extiw\" title=\"w:User:Blacknclick\">Prathyush Thomas</a></b>",
+    "license": "GFDL 1.2",
+    "license_url": "http://www.gnu.org/licenses/old-licenses/fdl-1.2.html"
+  },
+  {
+    "name": "Морковь",
+    "file": "carrot.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Vegetable-Carrot-Bundle-wStalks.jpg",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/a/a2/Vegetable-Carrot-Bundle-wStalks.jpg?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "<a href=\"//commons.wikimedia.org/wiki/User:Evan-Amos\" title=\"User:Evan-Amos\">Evan-Amos</a>",
+    "license": "Public domain",
+    "license_url": ""
+  },
+  {
+    "name": "Картофель",
+    "file": "potato.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Patates.jpg",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/a/ab/Patates.jpg?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "Scott Bauer, USDA ARS",
+    "license": "Public domain",
+    "license_url": ""
+  },
+  {
+    "name": "Брокколи",
+    "file": "broccoli.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Broccoli_and_cross_section_edit.jpg",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/0/03/Broccoli_and_cross_section_edit.jpg?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "<a href=\"//commons.wikimedia.org/wiki/User:Fir0002\" title=\"User:Fir0002\">Fir0002</a>",
+    "license": "GFDL 1.2",
+    "license_url": "http://www.gnu.org/licenses/old-licenses/fdl-1.2.html"
+  },
+  {
+    "name": "Молоко фермерское 3,2%",
+    "file": "milk.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Glass_of_Milk_(33657535532).jpg",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/a/a5/Glass_of_Milk_%2833657535532%29.jpg?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/people/54591706@N02\">NIAID</a>",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0"
+  },
+  {
+    "name": "Йогурт натуральный",
+    "file": "yogurt.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Joghurt.jpg",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Joghurt.jpg?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "No machine-readable author provided. <a rel=\"mw:WikiLink\" href=\"https://commons.wikimedia.org/wiki/User:Rainer_Zenz\" title=\"User:Rainer Zenz\">Rainer Zenz</a> assumed (based on copyright claims).\n<link rel=\"mw:PageProp/Category\" href=\"./Category:Files_with_no_machine-readable_source\">",
+    "license": "CC BY-SA 3.0",
+    "license_url": "http://creativecommons.org/licenses/by-sa/3.0/"
+  },
+  {
+    "name": "Кефир",
+    "file": "kefir.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Kefir_in_a_glass.JPG",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/8/83/Kefir_in_a_glass.JPG?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "<a href=\"https://en.wikipedia.org/wiki/ru:User:Quijote\" class=\"extiw\" title=\"w:ru:User:Quijote\">Quijote</a> at <a href=\"https://en.wikipedia.org/wiki/ru:\" class=\"extiw\" title=\"w:ru:\">Russian Wikipedia</a>",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  {
+    "name": "Творог",
+    "file": "quark_dairy_product.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Skimmed_milk_quark_on_spoon.jpg",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Skimmed_milk_quark_on_spoon.jpg?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "<a href=\"//commons.wikimedia.org/wiki/User:SKopp\" title=\"User:SKopp\">SKopp</a>",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  {
+    "name": "Сыр Гауда",
+    "file": "gouda_cheese.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Chesses_gouda_affinage.JPG",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Chesses_gouda_affinage.JPG?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "No machine-readable author provided. <a href=\"//commons.wikimedia.org/w/index.php?title=User:Alpha.prim~commonswiki&amp;action=edit&amp;redlink=1\" class=\"new\" title=\"User:Alpha.prim~commonswiki (page does not exist)\">Alpha.prim~commonswiki</a> assumed (based on copyright claims).",
+    "license": "Public domain",
+    "license_url": ""
+  },
+  {
+    "name": "Круассан сливочный",
+    "file": "croissant.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Croissant-Petr_Kratochvil.jpg",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/2/2a/Croissant-Petr_Kratochvil.jpg?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "<a rel=\"nofollow\" class=\"external text\" href=\"http://www.publicdomainpictures.net/browse-author.php?a=1\">Petr Kratochvil</a>",
+    "license": "CC0",
+    "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  {
+    "name": "Хлеб на закваске",
+    "file": "sourdough.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Sourdough_bread_loaf.jpg",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/3/3d/Sourdough_bread_loaf.jpg?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "<a href=\"//commons.wikimedia.org/w/index.php?title=User:Nhall0901&amp;action=edit&amp;redlink=1\" class=\"new\" title=\"User:Nhall0901 (page does not exist)\">Nhall0901</a>",
+    "license": "CC0",
+    "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  {
+    "name": "Багет французский",
+    "file": "baguette.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Baguettes,_Paris,_France_-_panoramio.jpg",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/8/86/Baguettes%2C_Paris%2C_France_-_panoramio.jpg?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "<a rel=\"nofollow\" class=\"external text\" href=\"https://web.archive.org/web/20161025133456/http://www.panoramio.com/user/6923820?with_photo_id=75001859\">Nick Thweatt</a>",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  {
+    "name": "Бублик с кунжутом",
+    "file": "bagel.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Bagel_with_sesame_3.jpg",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/8/85/Bagel_with_sesame_3.jpg?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "<a href=\"//commons.wikimedia.org/wiki/User:Shisma\" title=\"User:Shisma\">Shisma</a>",
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0"
+  },
+  {
+    "name": "Маффин шоколадный",
+    "file": "chocolate_muffin.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:NCI_Visuals_Food_Muffins.jpg",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/2/25/NCI_Visuals_Food_Muffins.jpg?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "Unknown photographer/artist",
+    "license": "Public domain",
+    "license_url": ""
+  },
+  {
+    "name": "Сок апельсиновый",
+    "file": "orange_juice.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Orangejuice.jpg",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/0/05/Orangejuice.jpg?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "rawpixel.com",
+    "license": "CC0",
+    "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  {
+    "name": "Сок яблочный",
+    "file": "apple_juice.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Apfelsaft_im_Glas.jpg",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/c/cf/Apfelsaft_im_Glas.jpg?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "Verband der deutschen Fruchtsaftindustrie e.V.",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  {
+    "name": "Сок томатный",
+    "file": "tomato_juice.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Tomato_juice_316744.jpg",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/3/37/Tomato_juice_316744.jpg?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "<a rel=\"nofollow\" class=\"external text\" href=\"https://pixabay.com/fr/users/PublicDomainPictures-14/\">PublicDomainPictures-14</a>",
+    "license": "CC0",
+    "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  {
+    "name": "Сок гранатовый",
+    "file": "pomegranate_juice.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Pomegranate_Juice_(2019).jpg",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/6/6a/Pomegranate_Juice_%282019%29.jpg?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "<b><a href=\"https://en.wikipedia.org/wiki/User:Mydreamsparrow\" class=\"extiw\" title=\"w:User:Mydreamsparrow\">Augustus Binu</a> : <a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/photos/134573731@N04\">flickr</a></b>",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  {
+    "name": "Сок морковный",
+    "file": "carrot_juice.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:GlassOfJuice_and_carrots.JPG",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/3/3c/GlassOfJuice_and_carrots.JPG?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "<a href=\"//commons.wikimedia.org/wiki/User:Salix\" title=\"User:Salix\">Salix</a>",
+    "license": "CC BY 3.0",
+    "license_url": "https://creativecommons.org/licenses/by/3.0"
+  },
+  {
+    "name": "Вода питьевая",
+    "file": "bottled_water.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Bottled_water.jpg",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/b/b1/Bottled_water.jpg?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "<a href=\"//commons.wikimedia.org/w/index.php?title=User:H.A.W.C_101&amp;action=edit&amp;redlink=1\" class=\"new\" title=\"User:H.A.W.C 101 (page does not exist)\">H.A.W.C 101</a>",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  {
+    "name": "Вода газированная",
+    "file": "carbonated_water.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Drinking_glass_00118.gif",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/5/59/Drinking_glass_00118.gif?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "<a href=\"//commons.wikimedia.org/wiki/User:Nevit\" title=\"User:Nevit\">Nevit Dilmen</a> (<a href=\"//commons.wikimedia.org/wiki/User_talk:Nevit\" title=\"User talk:Nevit\"><span class=\"signature-talk\">talk</span></a>)",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  {
+    "name": "Вода минеральная",
+    "file": "mineral_water.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Borjomi_mineral_water.jpg",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/c/ce/Borjomi_mineral_water.jpg?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/photos/93959157@N00\">Johnny Action</a>",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0"
+  },
+  {
+    "name": "Вода Боржоми",
+    "file": "borjomi_water.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Borjomi_mineral_water.jpg",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/c/ce/Borjomi_mineral_water.jpg?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/photos/93959157@N00\">Johnny Action</a>",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0"
+  },
+  {
+    "name": "Вода Эвиан",
+    "file": "evian.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Evian_Water_Bottle_By_Issey_Miyake.jpg",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/e/e6/Evian_Water_Bottle_By_Issey_Miyake.jpg?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "<a href=\"//commons.wikimedia.org/wiki/User:Qirille\" title=\"User:Qirille\">Qirille</a>",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  {
+    "name": "Мёд цветочный",
+    "file": "honey.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Runny_hunny.jpg",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/c/cc/Runny_hunny.jpg?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "Scott Bauer, USDA ARS",
+    "license": "Public domain",
+    "license_url": ""
+  },
+  {
+    "name": "Рис белый",
+    "file": "white_rice.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:White_rice.jpg",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/a/a3/White_rice.jpg?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "<a href=\"//commons.wikimedia.org/w/index.php?title=User:Lucy_Gull&amp;action=edit&amp;redlink=1\" class=\"new\" title=\"User:Lucy Gull (page does not exist)\">Lucy Gull</a>",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  {
+    "name": "Гречневая крупа",
+    "file": "buckwheat.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Fagopyrum_%D0%B3%D1%80%D0%B5%D1%87%D0%BA%D0%B0.jpg",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/8/85/Fagopyrum_%D0%B3%D1%80%D0%B5%D1%87%D0%BA%D0%B0.jpg?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "This photography was created by <a href=\"//commons.wikimedia.org/wiki/User:Mariluna\" title=\"User:Mariluna\">Mariluna</a>. Other photos <a href=\"//commons.wikimedia.org/wiki/User:Mariluna/Gallery_of_User:Mariluna\" title=\"User:Mariluna/Gallery of User:Mariluna\">see here</a>.",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  {
+    "name": "Спагетти",
+    "file": "spaghetti.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Spaghetti.jpg",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/9/93/Spaghetti.jpg?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "",
+    "license": "CC BY-SA 3.0",
+    "license_url": "http://creativecommons.org/licenses/by-sa/3.0/"
+  },
+  {
+    "name": "Масло оливковое",
+    "file": "olive_oil.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Olive_oil_from_Oneglia.jpg",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/4/49/Olive_oil_from_Oneglia.jpg?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "<a href=\"//commons.wikimedia.org/wiki/User:Lemone\" title=\"User:Lemone\">Lemone</a>",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  {
+    "name": "Курица запечённая",
+    "file": "chicken_as_food.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Roasted_chicken_and_potatoes.JPG",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/c/cd/Roasted_chicken_and_potatoes.JPG?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "<a href=\"//commons.wikimedia.org/wiki/User:Biso\" title=\"User:Biso\">Biso</a>",
+    "license": "CC BY 3.0",
+    "license_url": "https://creativecommons.org/licenses/by/3.0"
+  },
+  {
+    "name": "Говядина",
+    "file": "beef.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Standing-rib-roast.jpg",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/6/60/Standing-rib-roast.jpg?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "Michael C. Berch, aka <a href=\"https://en.wikipedia.org/wiki/User:MCB\" class=\"extiw\" title=\"en:User:MCB\">MCB</a> at <a class=\"external text\" data-mw-original-href=\"http://en.wikipedia.org\" href=\"https://en.wikipedia.org\">en.wikipedia</a>",
+    "license": "CC BY-SA 2.5",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.5"
+  },
+  {
+    "name": "Свинина",
+    "file": "pork.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Pork.jpg",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/1/1d/Pork.jpg?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "",
+    "license": "Public domain",
+    "license_url": ""
+  },
+  {
+    "name": "Индейка запечённая",
+    "file": "turkey_as_food.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Thanksgiving_Turkey.jpg",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/a/a3/Thanksgiving_Turkey.jpg?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/photos/43935390809@N01\">Patrick Fitzgerald</a> from Atlanta, GA, USA",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0"
+  },
+  {
+    "name": "Бекон",
+    "file": "bacon.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Bacon.JPG",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/9/92/Bacon.JPG?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "",
+    "license": "Public domain",
+    "license_url": ""
+  },
+  {
+    "name": "Лосось, филе",
+    "file": "salmon_as_food.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Salmon_filet_fish_with_skin_packaged.jpg",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/77/Salmon_filet_fish_with_skin_packaged.jpg?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "<a href=\"//commons.wikimedia.org/wiki/User:Amin\" title=\"User:Amin\">Amin</a>",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  {
+    "name": "Форель запечённая",
+    "file": "trout.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Baked_trout.jpg",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/6/63/Baked_trout.jpg?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "<a href=\"//commons.wikimedia.org/wiki/User:PetarM\" title=\"User:PetarM\">Petar Milošević</a>",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  {
+    "name": "Треска сушёная",
+    "file": "cod_as_food.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Preserved_Codfish_Bodara.jpg",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7d/Preserved_Codfish_Bodara.jpg?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "<a href=\"//commons.wikimedia.org/wiki/User:Midori\" title=\"User:Midori\">Sakurai Midori</a>",
+    "license": "CC BY-SA 3.0",
+    "license_url": "http://creativecommons.org/licenses/by-sa/3.0/"
+  },
+  {
+    "name": "Креветки",
+    "file": "shrimp_and_prawn_as_food.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Shrimp_on_Ice-1.jpg",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/3/3a/Shrimp_on_Ice-1.jpg?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "<a href=\"//commons.wikimedia.org/wiki/User:Leo_Chiou\" title=\"User:Leo Chiou\">Leo Chiou</a>",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  {
+    "name": "Мидии",
+    "file": "mussel.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:CornishMussels.JPG",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/4/45/CornishMussels.JPG?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "<a href=\"https://en.wikipedia.org/wiki/User:Wilson44691\" class=\"extiw\" title=\"wikipedia:User:Wilson44691\">Wilson44691</a> at <a href=\"https://en.wikipedia.org/wiki/\" class=\"extiw\" title=\"wikipedia:\">English Wikipedia</a>",
+    "license": "Public domain",
+    "license_url": ""
+  },
+  {
+    "name": "Шоколад тёмный",
+    "file": "dark_chocolate.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Green_and_Black%27s_dark_chocolate_bar_2.jpg",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/c/cd/Green_and_Black%27s_dark_chocolate_bar_2.jpg?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "<a href=\"//commons.wikimedia.org/wiki/User:Mx._Granger\" title=\"User:Mx. Granger\">Mx. Granger</a>",
+    "license": "CC0",
+    "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  {
+    "name": "Печенье овсяное",
+    "file": "oatmeal_raisin_cookie.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Archway_Oatmeal_Raisin_cookies.JPG",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/1/10/Archway_Oatmeal_Raisin_cookies.JPG?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "<a href=\"//commons.wikimedia.org/wiki/User:Deedeebee\" class=\"mw-redirect\" title=\"User:Deedeebee\">Dwight Burdette</a>",
+    "license": "CC BY 3.0",
+    "license_url": "https://creativecommons.org/licenses/by/3.0"
+  },
+  {
+    "name": "Мармелад",
+    "file": "gummi_candy.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Fale_-_Barcellona_-_194.jpg",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/c/c8/Fale_-_Barcellona_-_194.jpg?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "<a href=\"//commons.wikimedia.org/wiki/User:Fale\" title=\"User:Fale\">Fabio Alessandro Locati</a>",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  {
+    "name": "Мороженое ванильное",
+    "file": "vanilla_ice_cream.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Vanilla_Ice_Cream_Cone_at_Camp_Manitoulin.jpg",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Vanilla_Ice_Cream_Cone_at_Camp_Manitoulin.jpg?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/people/10506540@N07\">Steven Depolo</a>",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0"
+  },
+  {
+    "name": "Миндаль",
+    "file": "almond.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Almonds_-_in_shell,_shell_cracked_open,_shelled,_blanched.jpg",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/3/37/Almonds_-_in_shell%2C_shell_cracked_open%2C_shelled%2C_blanched.jpg?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "<a href=\"//commons.wikimedia.org/wiki/User:Iifar\" title=\"User:Iifar\">Ivar Leidus</a>",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+  }
+]
