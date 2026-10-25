@@ -2,14 +2,25 @@ package org.example.aav.service;
 
 import org.springframework.web.util.HtmlUtils;
 
-/** Self-contained email layout; no remote fonts, images or application CSS. */
+/** Этап 5: выносим оформление и подпись писем в одно место для повторного использования. Учебная последовательность. */
 public final class BrandedMail {
+  /**
+   * Запрещает создавать объект: методы оформления вызываются прямо у класса.
+   */
   private BrandedMail() {}
 
+  /**
+   * Создаёт HTML-письмо с оформлением магазина и экранирует текст для безопасного показа.
+   * @param title название для показа пользователю
+   * @param text текст отзыва или сообщения
+   */
   public static String html(String title, String text) {
+    // Собираемое содержимое письма.
     var content = new StringBuilder();
+    // Очередная строка текста письма.
     for (String line : text.split("\\R")) {
       if (line.isBlank()) continue;
+      // Оформление строки html-письма.
       String style = line.startsWith("Итого:")
           ? "font-size:22px;font-weight:bold;color:#285b3b;border-top:1px solid #dce5d7;padding-top:18px;"
           : "font-size:16px;line-height:1.7;color:#354738;";
@@ -37,6 +48,10 @@ public final class BrandedMail {
         """.formatted(HtmlUtils.htmlEscape(title), content);
   }
 
+  /**
+   * Добавляет подпись магазина к обычному тексту письма.
+   * @param body текст письма
+   */
   public static String plain(String body) {
     return body + "\n\nС уважением и заботой,\nкоманда «Зелёной лавки»\nСвежесть рядом. Каждый день.";
   }

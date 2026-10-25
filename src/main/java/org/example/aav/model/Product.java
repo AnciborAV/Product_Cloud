@@ -5,9 +5,28 @@ import java.math.RoundingMode;
 import java.util.Objects;
 import java.util.UUID;
 
-/** Неизменяемый товар; денежные значения хранятся без ошибок double. */
-public record Product(UUID id, String name, BigDecimal price, Category category, String unit) {
-    /** Иллюстрации начального каталога; для остальных товаров — нейтральная корзина. */
+/** Этап 2: описываем неизменяемый товар и проверяем его данные; цену храним точно через BigDecimal. Учебная последовательность.
+ *
+ * @param id уникальный номер записи
+ * @param name название товара
+ * @param price цена товара; BigDecimal позволяет точно хранить копейки
+ * @param category категория товара
+ * @param unit единица продажи, например 1 кг или 1 шт.
+ */
+public record Product(
+    // Уникальный номер товара для поиска и связи с записью в базе.
+    UUID id,
+    // Название, которое видит покупатель.
+    String name,
+    // Точная цена с копейками, без погрешностей double.
+    BigDecimal price,
+    // Категория для фильтрации товаров в каталоге.
+    Category category,
+    // Размер продаваемой порции, например 1 кг или 1 л.
+    String unit) {
+    /**
+     * Подбирает значок по названию товара; для неизвестного товара возвращает корзину.
+     */
     public String getIllustrationIcon() {
         return switch (name) {
             case "Авокадо Хасс" -> "🥑";
@@ -22,7 +41,9 @@ public record Product(UUID id, String name, BigDecimal price, Category category,
         };
     }
 
-    /** Local photographs matched explicitly to each seeded product. */
+    /**
+     * Возвращает путь к фотографии товара; если фотографии нет, возвращает null.
+     */
     public String getImageUrl() {
         return switch (name) {
             case "Авокадо Хасс" -> "/images/products/avocado.jpg";
@@ -79,6 +100,7 @@ public record Product(UUID id, String name, BigDecimal price, Category category,
         };
     }
 
+    /** Проверяет обязательные данные, убирает пробелы и приводит цену к точности в копейках. */
     public Product {
         Objects.requireNonNull(id, "id");
         Objects.requireNonNull(name, "name");

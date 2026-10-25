@@ -17,17 +17,27 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+/** Этап 8: добавляем проверки витрины и запросов к каталогу, чтобы замечать ошибки при изменениях. Учебная последовательность. */
 @SpringBootTest
 class ProductsControllerTest {
+  // Контекст Spring: настройки и объекты приложения.
   @Autowired WebApplicationContext context;
+  // Сервис товаров, работу которого проверяет тест.
   @Autowired ProductService service;
+  // Имитация запросов браузера для проверки контроллеров.
   MockMvc mvc;
 
+  /**
+   * Перед каждым тестом создаёт имитацию браузера с защитой Spring Security.
+   */
   @BeforeEach
   void setUp() {
     mvc = MockMvcBuilders.webAppContextSetup(context).apply(springSecurity()).build();
   }
 
+  /**
+   * Проверяет показ витрины по главному адресу сайта.
+   */
   @Test
   void rendersStorefrontAtRoot() throws Exception {
     mvc.perform(get("/"))
@@ -38,6 +48,9 @@ class ProductsControllerTest {
         .andExpect(content().string(containsString("Авокадо Хасс")));
   }
 
+  /**
+   * Проверяет совместную работу поиска и фильтра категории.
+   */
   @Test
   void filtersProducts() throws Exception {
     mvc.perform(get("/products").param("q", "МОЛОКО").param("category", "DAIRY"))
@@ -46,6 +59,9 @@ class ProductsControllerTest {
         .andExpect(content().string(not(containsString("Авокадо Хасс"))));
   }
 
+  /**
+   * Проверяет сообщение при отсутствии найденных товаров.
+   */
   @Test
   void displaysEmptyState() throws Exception {
     mvc.perform(get("/products").param("q", "несуществующийтовар"))
@@ -53,8 +69,12 @@ class ProductsControllerTest {
         .andExpect(content().string(containsString("Пока ничего не нашлось")));
   }
 
+  /**
+   * Проверяет добавление товара и перенаправление после отправки формы.
+   */
   @Test
   void addsProductAndRedirectsToPreventDuplicateSubmission() throws Exception {
+    // Число товаров до действия для сравнения с результатом.
     int before = service.findAll().size();
     mvc.perform(
             post("/products")
@@ -70,8 +90,12 @@ class ProductsControllerTest {
     assertThat(service.findAll()).hasSize(before + 1);
   }
 
+  /**
+   * Проверяет сохранность каталога при ошибках формы.
+   */
   @Test
   void invalidFormDoesNotChangeCatalog() throws Exception {
+    // Число товаров до действия для сравнения с результатом.
     int before = service.findAll().size();
     mvc.perform(
             post("/products")
@@ -86,6 +110,9 @@ class ProductsControllerTest {
     assertThat(service.findAll()).hasSize(before);
   }
 
+  /**
+   * Проверяет понятную ошибку формы при цене, введённой буквами.
+   */
   @Test
   void handlesMalformedPriceAsFormError() throws Exception {
     mvc.perform(
@@ -99,11 +126,17 @@ class ProductsControllerTest {
         .andExpect(model().attributeHasFieldErrors("productForm", "price"));
   }
 
+  /**
+   * Проверяет отказ при неизвестной категории.
+   */
   @Test
   void rejectsUnknownCategory() throws Exception {
     mvc.perform(get("/products").param("category", "UNKNOWN")).andExpect(status().isBadRequest());
   }
 
+  /**
+   * Проверяет безопасный вывод названия с HTML-символами.
+   */
   @Test
   void escapesUserSuppliedProductName() throws Exception {
     mvc.perform(
@@ -119,6 +152,9 @@ class ProductsControllerTest {
         .andExpect(content().string(not(containsString("<script>alert(1)</script>"))));
   }
 
+  /**
+   * Проверяет выдачу файла стилей витрины.
+   */
   @Test
   void servesStylesheet() throws Exception {
     mvc.perform(get("/css/store.css").param("v", "2"))
