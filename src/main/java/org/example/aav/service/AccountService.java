@@ -180,6 +180,19 @@ public class AccountService {
     }
   }
 
+  /** Удаляет отмеченные товары только из подборки текущего пользователя. */
+  @Transactional
+  public long removeSelectedProducts(String username, Collection<UUID> productIds) {
+    if (productIds.isEmpty()) return 0;
+    var user = lock(username);
+    long removed = selected.deleteByUserIdAndProductIdIn(user.getId(), new HashSet<>(productIds));
+    if (removed > 0) {
+      selected.flush();
+      selectionMail.enqueue(user, selected.findByUserUsernameOrderByCreatedAtDesc(username));
+    }
+    return removed;
+  }
+
   /**
    * Создаёт отзыв или обновляет существующий отзыв этого пользователя о товаре.
    * @param username логин пользователя для входа

@@ -125,6 +125,52 @@ class AccountIntegrationTest {
     assertThat(accounts.selected(name)).isEmpty();
   }
 
+  @Test
+  void removesSelectedProductsTogetherAndQueuesOneUpdate() throws Exception {
+    var items = products.findAll().subList(0, 3);
+    for (var item : items) accounts.addSelected(name, item.id());
+    var userId = accounts.user(name).getId();
+    mvc.perform(get("/account").with(user(name)))
+        .andExpect(status().isOk())
+        .andExpect(content().string(containsString("select-all-products")))
+        .andExpect(content().string(containsString("Удалить выбранные")));
+    mvc.perform(post("/account/products/remove-selected").with(user(name))
+        .param("productIds", items.getFirst().id().toString()))
+        .andExpect(status().isForbidden());
+    mvc.perform(post("/account/products/remove-selected").with(user(name)).with(csrf())
+        .param("productIds", items.get(0).id().toString(), items.get(1).id().toString(),
+            items.get(0).id().toString(), UUID.randomUUID().toString()))
+        .andExpect(redirectedUrl("/account"))
+        .andExpect(flash().attribute("message", "Удалено товаров: 2"));
+    assertThat(accounts.selected(name)).extracting(p -> p.id()).containsExactly(items.get(2).id());
+    assertThat(jdbc.queryForObject("SELECT count(*) FROM selection_mail_outbox WHERE user_id=?",
+        Integer.class, userId)).isEqualTo(4);
+    mvc.perform(post("/account/products/remove-selected").with(user(name)).with(csrf()))
+        .andExpect(redirectedUrl("/account"));
+    mvc.perform(post("/account/products/remove-selected").with(user(name)).with(csrf())
+        .param("productIds", items.get(2).id().toString()))
+        .andExpect(redirectedUrl("/account"));
+    assertThat(accounts.selected(name)).isEmpty();
+  }
+
+  @Test
+  void bulkRemovalDoesNotAffectAnotherUsersSelection() {
+    var id = products.findAll().getFirst().id();
+    accounts.addSelected(name, id);
+    var other = new RegistrationForm();
+    other.setUsername(name + "other");
+    other.setDisplayName("Другой");
+    other.setLastName("Тестов");
+    other.setPhone("+79991234567");
+    other.setEmail("other@example.test");
+    other.setPassword("another-long-password");
+    accounts.register(other);
+    accounts.addSelected(other.getUsername(), id);
+    assertThat(accounts.removeSelectedProducts(other.getUsername(), java.util.List.of(id))).isEqualTo(1);
+    assertThat(accounts.selected(other.getUsername())).isEmpty();
+    assertThat(accounts.selected(name)).hasSize(1);
+  }
+
   /**
    * Проверяет сохранение названий товаров и постановку обновлённых списков в очередь.
    */

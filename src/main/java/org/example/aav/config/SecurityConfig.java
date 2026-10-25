@@ -71,7 +71,7 @@ public class SecurityConfig {
                     .requestMatchers(org.springframework.http.HttpMethod.POST, "/products")
                     .hasRole("ADMIN")
                     .requestMatchers(
-                        "/", "/products", "/reviews", "/login", "/register", "/css/**", "/images/**", "/error")
+                        "/", "/products", "/reviews", "/login", "/register", "/css/**", "/js/**", "/images/**", "/error")
                     .permitAll()
                     .anyRequest()
                     .denyAll())

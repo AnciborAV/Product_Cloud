@@ -26,4 +26,6 @@ public interface SelectedProductRepository extends JpaRepository<SelectedProduct
    * @param productId уникальный номер товара
    */
   void deleteByUserIdAndProductId(UUID userId, UUID productId);
+
+  long deleteByUserIdAndProductIdIn(UUID userId, Collection<UUID> productIds);
 }

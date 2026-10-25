@@ -183,6 +183,19 @@ public class AccountController {
     return "redirect:/account";
   }
 
+  /** Удаляет отмеченные товары одним действием. */
+  @PostMapping("/account/products/remove-selected")
+  public String removeSelected(
+      Principal p,
+      @RequestParam(name = "productIds", required = false) java.util.List<UUID> productIds,
+      RedirectAttributes flash) {
+    long removed = accounts.removeSelectedProducts(
+        p.getName(), productIds == null ? java.util.List.of() : productIds);
+    flash.addFlashAttribute("message", removed == 0
+        ? "Выберите товары для удаления" : "Удалено товаров: " + removed);
+    return "redirect:/account";
+  }
+
   /**
    * Проверяет форму отзыва; при ошибках снова показывает её, иначе сохраняет отзыв.
    * @param p вошедший пользователь

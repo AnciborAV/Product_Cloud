@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Зелёная лавка — личное пространство</title>
-    <link rel="stylesheet" th:href="@{/css/store.css(v=3)}" />
+    <link rel="stylesheet" th:href="@{/css/store.css(v=4)}" />
   </head>
   <body>
     <div class="announcement">Хорошие продукты. Ваш выбор. Ваша лавка.</div>
@@ -96,7 +96,15 @@
             <p class="muted" th:if="${#lists.isEmpty(selectedProducts)}">
               Здесь появятся продукты, которые вы сохраните в каталоге.
             </p>
+            <form id="selection-form" class="selection-toolbar" th:if="${!#lists.isEmpty(selectedProducts)}"
+                  th:action="@{/account/products/remove-selected}" method="post">
+              <label class="select-all"><input type="checkbox" id="select-all-products" /> Выбрать все</label>
+              <span id="selection-count" role="status" aria-live="polite">Выбрано: 0</span>
+              <button class="delete-selected" type="submit" disabled>Удалить выбранные</button>
+            </form>
             <article class="saved-row" th:each="product : ${selectedProducts}">
+              <input class="product-checkbox" type="checkbox" name="productIds" form="selection-form"
+                     th:value="${product.id}" th:attr="aria-label='Выбрать товар: ' + ${product.name}" />
               <img class="saved-photo" th:if="${product.imageUrl != null}" th:src="${product.imageUrl}" th:alt="${product.name}" width="64" height="64" />
               <span th:if="${product.imageUrl == null}"
                 class="saved-icon"
@@ -202,6 +210,7 @@
         </div>
       </div>
     </main>
+    <script defer th:src="@{/js/product-selection.js}"></script>
     <footer th:replace="~{fragments :: footer}"></footer>
   </body>
 </html>

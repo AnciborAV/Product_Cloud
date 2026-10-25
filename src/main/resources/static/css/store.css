@@ -1036,3 +1036,37 @@ a:focus-visible {
     grid-row: 1;
   }
 }
+
+.selection-toolbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding: 16px;
+  margin-top: 20px;
+  border: 1px solid #dbe5d6;
+  border-radius: 12px;
+  background: #f4f7f0;
+}
+.select-all { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+.product-checkbox, .select-all input {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  accent-color: #466742;
+  cursor: pointer;
+}
+.selection-toolbar [role="status"] { color: #526f4a; font-size: 14px; }
+.delete-selected {
+  margin-left: auto;
+  padding: 10px 16px;
+  border: 1px solid #a53832;
+  border-radius: 8px;
+  color: #a53832;
+  background: white;
+  font: inherit;
+  cursor: pointer;
+}
+.delete-selected:hover:enabled { background: #fff0ee; }
+.delete-selected:disabled { opacity: .45; cursor: not-allowed; }
+.saved-row.is-selected { background: #f4f7f0; }
