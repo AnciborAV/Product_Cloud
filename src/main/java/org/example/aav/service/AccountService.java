@@ -164,6 +164,29 @@ public class AccountService {
     }
   }
 
+  /** Добавляет подборку одной транзакцией и готовит одно письмо с итоговым списком. */
+  @Transactional
+  public int addSelectedProducts(String username, Collection<UUID> productIds) {
+    if (productIds.isEmpty()) return 0;
+    var user = lock(username);
+    var ids = new HashSet<>(productIds);
+    var found = products.findAllById(ids);
+    if (found.size() != ids.size())
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+    int added = 0;
+    for (var product : found) {
+      if (!selected.existsByUserIdAndProductId(user.getId(), product.getId())) {
+        selected.save(new SelectedProduct(user, product));
+        added++;
+      }
+    }
+    if (added > 0) {
+      selected.flush();
+      selectionMail.enqueue(user, selected.findByUserUsernameOrderByCreatedAtDesc(username));
+    }
+    return added;
+  }
+
   /**
    * Удаляет выбранный товар и готовит письмо с обновлённым списком.
    * @param username логин пользователя для входа

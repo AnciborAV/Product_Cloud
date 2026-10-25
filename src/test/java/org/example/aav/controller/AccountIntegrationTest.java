@@ -73,6 +73,45 @@ class AccountIntegrationTest {
     mvc.perform(get("/reviews")).andExpect(status().isOk());
   }
 
+  @Test
+  void addsSelectedProductsAndKeepsCatalogFilters() throws Exception {
+    var items = products.findAll().subList(0, 2);
+    String first = items.get(0).id().toString();
+    String second = items.get(1).id().toString();
+    mvc.perform(get("/products").with(user(name)))
+        .andExpect(content().string(containsString("Добавить выбранные в корзину")))
+        .andExpect(content().string(containsString("form=\"selection-form\"")));
+    mvc.perform(post("/account/products/add-selected").with(user(name))
+        .param("productIds", first, second)).andExpect(status().isForbidden());
+    mvc.perform(post("/account/products/add-selected").with(csrf())
+        .param("productIds", first, second)).andExpect(status().is3xxRedirection());
+    assertThat(accounts.selected(name)).isEmpty();
+    mvc.perform(post("/account/products/add-selected").with(user(name)).with(csrf())
+        .param("productIds", first, second, first)
+        .param("q", "молоко").param("category", "DAIRY").param("page", "1"))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(redirectedUrl("/products?q=%D0%BC%D0%BE%D0%BB%D0%BE%D0%BA%D0%BE&category=DAIRY&page=1#catalog"))
+        .andExpect(flash().attribute("message", "Добавлено в корзину: 2"));
+    assertThat(accounts.selected(name)).extracting(p -> p.id())
+        .containsExactlyInAnyOrder(items.get(0).id(), items.get(1).id());
+    assertThat(jdbc.queryForObject("SELECT count(*) FROM selection_mail_outbox WHERE user_id=?",
+        Integer.class, users.findByUsername(name).orElseThrow().getId())).isOne();
+    mvc.perform(post("/account/products/add-selected").with(user(name)).with(csrf())
+        .param("productIds", first, second))
+        .andExpect(flash().attribute("message", "Все выбранные товары уже в корзине"));
+    mvc.perform(post("/account/products/add-selected").with(user(name)).with(csrf()))
+        .andExpect(flash().attribute("message", "Выберите товары для добавления"));
+    assertThat(accounts.selected(name)).hasSize(2);
+  }
+
+  @Test
+  void unknownProductDoesNotPartiallyAddSelection() throws Exception {
+    mvc.perform(post("/account/products/add-selected").with(user(name)).with(csrf())
+        .param("productIds", products.findAll().getFirst().id().toString(), UUID.randomUUID().toString()))
+        .andExpect(status().isNotFound());
+    assertThat(accounts.selected(name)).isEmpty();
+  }
+
   /**
    * Проверяет вход пользователя и хранение хеша вместо открытого пароля.
    */

@@ -172,6 +172,26 @@ public class AccountController {
     return "redirect:/account";
   }
 
+  /** Добавляет отмеченные товары и возвращает в тот же раздел каталога. */
+  @PostMapping("/account/products/add-selected")
+  public String addSelected(
+      Principal p,
+      @RequestParam(name = "productIds", required = false) java.util.List<UUID> productIds,
+      @RequestParam(defaultValue = "") String q,
+      @RequestParam(required = false) org.example.aav.model.Category category,
+      @RequestParam(defaultValue = "0") int page,
+      RedirectAttributes flash) {
+    var ids = productIds == null ? java.util.List.<UUID>of() : productIds;
+    int added = accounts.addSelectedProducts(p.getName(), ids);
+    flash.addFlashAttribute("message", ids.isEmpty() ? "Выберите товары для добавления"
+        : added == 0 ? "Все выбранные товары уже в корзине" : "Добавлено в корзину: " + added);
+    var target = org.springframework.web.util.UriComponentsBuilder.fromPath("/products")
+        .queryParam("q", q);
+    if (category != null) target.queryParam("category", category);
+    target.queryParam("page", Math.max(0, page)).fragment("catalog");
+    return "redirect:" + target.build().encode().toUriString();
+  }
+
   /**
    * Удаляет товар из личного кабинета и перенаправляет обратно.
    * @param p вошедший пользователь

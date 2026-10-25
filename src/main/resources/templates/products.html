@@ -110,6 +110,16 @@
           th:text="${message}"
           role="status"
         ></p>
+        <form id="selection-form" class="selection-toolbar" th:if="${!#lists.isEmpty(products)}"
+              th:action="@{/account/products/add-selected}" method="post">
+          <input type="hidden" name="q" th:value="${q}" />
+          <input type="hidden" name="category" th:value="${selectedCategory}" />
+          <input type="hidden" name="page" th:value="${productPage.number}" />
+          <label class="select-all"><input type="checkbox" id="select-all-products" /> Выбрать все на странице</label>
+          <span id="selection-count" role="status" aria-live="polite">Выбрано: 0</span>
+          <button class="button add-selected" type="submit">Добавить выбранные в корзину</button>
+          <a th:href="@{/account}">Перейти в корзину →</a>
+        </form>
         <div class="product-grid">
           <article class="product-card" th:each="product : ${products}">
             <div
@@ -125,6 +135,11 @@
               ><span class="image-decoration" aria-hidden="true">✳</span>
             </div>
             <div class="product-info">
+              <label class="catalog-product-select">
+                <input class="product-checkbox" type="checkbox" name="productIds" form="selection-form"
+                       th:value="${product.id}" th:attr="aria-label=${'Выбрать ' + product.name}" />
+                Выбрать
+              </label>
               <p
                 class="product-category"
                 th:text="${product.category.title}"
@@ -257,5 +272,6 @@
       ><span>С заботой о том, что на вашем столе.</span
       ><a href="/images/products/credits.html">Источники фотографий</a>
     </footer>
+    <script defer th:src="@{/js/product-selection.js(v=2)}"></script>
   </body>
 </html>
