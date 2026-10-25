@@ -27,7 +27,7 @@ public class PasswordChangeController {
       passwords.request(principal.getName(), currentPassword, newPassword, repeatPassword);
       flash.addFlashAttribute("message", "Код подтверждения отправлен в очередь на ваш email. Введите его ниже в течение 15 минут.");
     } catch (IllegalArgumentException ex) { flash.addFlashAttribute("error", ex.getMessage()); }
-    return "redirect:/account#password";
+    return "redirect:/account/password";
   }
 
   @PostMapping("/confirm")
@@ -37,7 +37,7 @@ public class PasswordChangeController {
       passwords.confirm(principal.getName(), code);
     } catch (IllegalArgumentException ex) {
       flash.addFlashAttribute("error", ex.getMessage());
-      return "redirect:/account#password";
+      return "redirect:/account/password";
     }
     for (Object p : sessions.getAllPrincipals()) {
       if (p instanceof UserDetails user && user.getUsername().equals(principal.getName()))

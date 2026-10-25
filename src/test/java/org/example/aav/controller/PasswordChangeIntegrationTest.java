@@ -66,6 +66,29 @@ class PasswordChangeIntegrationTest {
   }
 
   @Test
+  void passwordSettingsAreSeparateFromProductsAndRequireLogin() throws Exception {
+    mvc.perform(get("/account/password"))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(redirectedUrl("/login"));
+    mvc.perform(get("/account").with(user(name)))
+        .andExpect(status().isOk())
+        .andExpect(content().string(containsString("href=\"/account/password\"")))
+        .andExpect(content().string(org.hamcrest.Matchers.not(containsString("id=\"currentPassword\""))));
+    mvc.perform(get("/account/password").with(user(name)))
+        .andExpect(status().isOk())
+        .andExpect(view().name("account-password"))
+        .andExpect(content().string(containsString("id=\"currentPassword\"")))
+        .andExpect(content().string(containsString("password@example.test")));
+    mvc.perform(post("/account/password/request").with(user(name)).with(csrf())
+        .param("currentPassword", "wrong").param("newPassword", NEW).param("repeatPassword", NEW))
+        .andExpect(redirectedUrl("/account/password"))
+        .andExpect(flash().attributeExists("error"));
+    mvc.perform(post("/account/password/confirm").with(user(name)).with(csrf()).param("code", "00000000"))
+        .andExpect(redirectedUrl("/account/password"))
+        .andExpect(flash().attributeExists("error"));
+  }
+
+  @Test
   void changesOnlyAfterCodeAndRejectsReuse() {
     passwords.request(name, OLD, NEW, NEW);
     String code = code();
@@ -125,7 +148,7 @@ class PasswordChangeIntegrationTest {
         .andExpect(status().isForbidden());
     mvc.perform(post("/account/password/request").session(session).with(csrf())
         .param("currentPassword", OLD).param("newPassword", NEW).param("repeatPassword", NEW))
-        .andExpect(redirectedUrl("/account#password"));
+        .andExpect(redirectedUrl("/account/password"));
     mvc.perform(post("/account/password/confirm").session(session).with(csrf()).param("code", code()))
         .andExpect(redirectedUrl("/login?passwordChanged"));
     assertThat(session.isInvalid()).isTrue();

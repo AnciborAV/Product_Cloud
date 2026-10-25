@@ -65,6 +65,13 @@ public class AccountController {
     return "account";
   }
 
+  @GetMapping("/account/password")
+  public String password(Principal principal, Model model) {
+    model.addAttribute("account", accounts.user(principal.getName()));
+    model.addAttribute("mailEnabled", mailEnabled);
+    return "account-password";
+  }
+
   private void populate(Principal p, Model model) {
     model.addAttribute("mailEnabled", mailEnabled);
     model.addAttribute("account", accounts.user(p.getName()));

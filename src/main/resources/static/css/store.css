@@ -1013,3 +1013,26 @@ a:focus-visible {
 .product-image:has(.product-photo) .image-decoration { display: none; }
 .order-mail { margin: 24px 0; padding: 20px; background: #f3f6ee; border-radius: 16px; }
 .saved-photo { width: 64px; height: 64px; object-fit: contain; border-radius: 8px; }
+
+.account-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px 24px;
+}
+.security-main {
+  max-width: 720px;
+}
+.security-main > .section-heading {
+  margin-top: 32px;
+}
+.security-main .stack + .stack {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid #e3e8dd;
+}
+@media (max-width: 800px) {
+  .account-content {
+    grid-row: 1;
+  }
+}
