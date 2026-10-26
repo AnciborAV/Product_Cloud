@@ -1,4 +1,3 @@
--- Expand the original assortment without replacing products referenced by selections/reviews.
 UPDATE products SET category='FRUITS' WHERE name IN ('Авокадо Хасс','Яблоки Гала') AND category='VEGETABLES';
 INSERT INTO products(id,created_at,updated_at,version,name,price,category,unit,search_name) VALUES ('63d382b6-a891-5dea-9767-129900eb24fd',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,0,'Бананы',139.00,'FRUITS','1 кг','бананы');
 INSERT INTO products(id,created_at,updated_at,version,name,price,category,unit,search_name) VALUES ('42fb0ec2-7d84-5839-a832-cbf31c99e94b',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,0,'Апельсины',199.00,'FRUITS','1 кг','апельсины');

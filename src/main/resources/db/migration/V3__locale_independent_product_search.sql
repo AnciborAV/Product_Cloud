@@ -1,4 +1,3 @@
--- Search normalization is performed in Java, independently of database locale.
 ALTER TABLE products ADD COLUMN search_name VARCHAR(100);
 UPDATE products SET search_name = lower(translate(name,
  'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ',
