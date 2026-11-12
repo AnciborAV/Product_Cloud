@@ -1,0 +1,48 @@
+# Отдельные ресурсы Product Cloud. План free не создаёт платных услуг.
+services:
+  - type: web
+    name: product-cloud
+    runtime: docker
+    plan: free
+    region: frankfurt
+    branch: main
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /
+    autoDeployTrigger: "off"
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: render
+      - key: DB_HOST
+        fromDatabase:
+          name: product-cloud-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: product-cloud-db
+          property: port
+      - key: DB_NAME
+        fromDatabase:
+          name: product-cloud-db
+          property: database
+      - key: DB_USERNAME
+        fromDatabase:
+          name: product-cloud-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: product-cloud-db
+          property: password
+      - key: SESSION_COOKIE_SECURE
+        value: "true"
+      - key: MAIL_ENABLED
+        value: "false"
+
+databases:
+  - name: product-cloud-db
+    plan: free
+    region: frankfurt
+    postgresMajorVersion: "17"
+    databaseName: product_cloud
+    user: product_cloud
+    ipAllowList: []
